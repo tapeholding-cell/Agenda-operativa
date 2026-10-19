@@ -1,0 +1,9 @@
+{
+  "appId": "it.agendaoperativa.app",
+  "appName": "Agenda Operativa",
+  "webDir": "www",
+  "android": { "allowMixedContent": false },
+  "plugins": {
+    "LocalNotifications": { "smallIcon": "ic_stat_alarm", "iconColor": "#B4232F" }
+  }
+}

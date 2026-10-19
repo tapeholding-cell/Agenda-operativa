@@ -1,0 +1,54 @@
+name: Costruisci app
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Prepara la parte web
+        run: |
+          npm ci
+          npm run build
+          npx cap sync android
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Costruisci l'app Android
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+          cp app/build/outputs/apk/release/app-release.apk ../AgendaOperativa.apk
+
+      - name: Pubblica l'app da scaricare
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.${{ github.run_number }}
+          name: Agenda Operativa 1.${{ github.run_number }}
+          body: Scarica AgendaOperativa.apk sul telefono Android e installalo.
+          files: AgendaOperativa.apk
+          make_latest: true
+
+      - name: Pubblica la versione per il computer
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./www
