@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+def buildNum = Integer.parseInt(System.getenv('BUILD_NUMBER') ?: '1')
+
 android {
     namespace "it.agendaoperativa.app"
     compileSdk rootProject.ext.compileSdkVersion
@@ -7,8 +9,8 @@ android {
         applicationId "it.agendaoperativa.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode (System.getenv("BUILD_NUMBER") ?: "1").toInteger()
-        versionName "1." + (System.getenv("BUILD_NUMBER") ?: "0")
+        versionCode buildNum
+        versionName "1." + buildNum
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
