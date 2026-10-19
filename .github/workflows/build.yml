@@ -29,7 +29,11 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - uses: android-actions/setup-android@v3
+      - name: Controlla SDK Android
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+          test -d "${ANDROID_HOME:-$ANDROID_SDK_ROOT}" || { echo "::error title=SDK::SDK Android non trovato sul runner"; exit 1; }
+          echo "sdk.dir=${ANDROID_HOME:-$ANDROID_SDK_ROOT}" > android/local.properties
 
       - name: Costruisci l'app Android
         env:
