@@ -252,22 +252,6 @@ body{padding-top:env(safe-area-inset-top,0px)}
 .ukpi .k{border:1px solid var(--line);border-top:4px solid var(--kc,var(--accent));border-radius:10px;padding:8px 10px;background:var(--paper);min-width:0}
 .ukpi b{display:block;font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--kc,var(--ink));line-height:1.1}
 .ukpi span{font-size:11.5px;color:var(--muted);font-weight:600}
-.ucross{display:flex;gap:6px;overflow-x:auto;padding:0 16px 12px;scrollbar-width:thin}
-.uc{flex:none;border:1px solid var(--line);border-left:4px solid var(--rc);border-radius:8px;background:var(--paper);padding:6px 12px;text-align:left;display:grid;gap:1px}
-.uc b{font-size:14px}.uc span{font-size:11px;color:var(--muted);font-weight:600}
-.uc.on{background:var(--ink);color:var(--paper);border-color:var(--ink);border-left-color:var(--rc)}.uc.on span{color:color-mix(in srgb,var(--paper) 72%,transparent)}
-.ubar{display:flex;align-items:center;gap:8px;padding:10px 16px;border-top:1px solid var(--line);flex-wrap:wrap}.ubar b{font-size:16px}
-.uhead{display:grid;grid-template-columns:1fr 76px 56px;gap:10px;padding:4px 16px 4px 20px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-.uhead span:not(:first-child){text-align:center}
-.ulist{list-style:none;margin:0;padding:0}
-.up{display:grid;grid-template-columns:1fr 76px 56px;gap:10px;align-items:center;padding:10px 16px;border-top:1px solid var(--line);border-left:4px solid var(--rc)}
-.ubody{min-width:0;cursor:pointer}.ut{font-weight:700;overflow-wrap:anywhere}
-.rk{font-weight:800;color:var(--rc)}
-.ustock{width:100%;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--sunk);padding:9px 4px;font-size:17px;font-weight:700;text-align:center;font-variant-numeric:tabular-nums}
-.ustock::-webkit-outer-spin-button,.ustock::-webkit-inner-spin-button,.inp[type=number]::-webkit-inner-spin-button,.inp[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
-.ustock,.inp[type=number]{-moz-appearance:textfield;appearance:textfield}
-.ustock:focus{outline:2px solid var(--accent);background:var(--paper)}
-.uord{text-align:center}.uord b{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
 .uspace{padding:12px 16px;border-top:1px solid var(--line);display:grid;gap:8px}
 .row3,.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:end}
 .row3 label,.grid3 label,.fl{display:grid;gap:4px;font-size:12px;color:var(--muted);font-weight:600;min-width:0}
@@ -279,14 +263,34 @@ body{padding-top:env(safe-area-inset-top,0px)}
 .uprev{display:grid;grid-template-columns:1fr auto;gap:4px 12px;background:var(--sunk);border:1px solid var(--line);border-left:4px solid var(--rc);border-radius:10px;padding:10px 12px;font-size:13px}
 .uprev b{font-variant-numeric:tabular-nums;text-align:right}.uprev .big{font-size:16px;font-weight:800;color:var(--ink)}.uprev b.big{font-size:22px}
 textarea.inp{font-family:var(--f-mono);font-size:13px;resize:vertical}
-@media (max-width:640px){.ukpi{grid-template-columns:repeat(2,minmax(0,1fr));padding:0 10px 10px}.ucross,.ubar,.utop,.uspace,.uimp{padding-left:10px;padding-right:10px}.up{padding:10px;grid-template-columns:1fr 70px 46px;gap:8px}.uhead{grid-template-columns:1fr 70px 46px;gap:8px;padding-left:14px;padding-right:10px}.grid4 .fl span{font-size:10px}}
+.pnote{margin:0 16px 12px;padding:8px 12px;border-radius:8px;background:color-mix(in srgb,var(--p2) 12%,var(--paper));border:1px solid color-mix(in srgb,var(--p2) 35%,transparent);font-size:13.5px;font-weight:600}
+.pchart{padding:0 16px 10px}.pchart svg{width:100%;max-width:760px;height:auto;display:block}
+.lg{display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--c);vertical-align:-1px;margin-right:4px}.lg.dot{border-radius:50%;width:8px;height:8px}
+.ptable{border-top:1px solid var(--line)}
+.prow{display:grid;grid-template-columns:72px 64px 104px 104px 64px 104px 64px;justify-content:start;gap:6px;align-items:center;padding:4px 16px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.phead{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);border-top:0;padding-top:8px;padding-bottom:6px;text-align:center}.phead span:first-child{text-align:left}
+.prow.today{background:color-mix(in srgb,var(--accent) 9%,var(--paper));box-shadow:inset 3px 0 0 var(--accent)}
+.prow.past .pday{color:var(--muted)}
+.pweek{padding:10px 16px 4px;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);border-top:1px solid var(--line)}
+.pday{border:0;background:none;text-align:left;padding:6px 0;font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}.pday i{font-style:normal;color:var(--p2)}
+.pin{width:100%;min-width:0;border:1px solid var(--line);border-radius:7px;background:var(--sunk);padding:7px 2px;font-size:16px;font-weight:600;text-align:center;font-variant-numeric:tabular-nums}
+.pin::placeholder{color:color-mix(in srgb,var(--muted) 55%,transparent)}
+.pin:focus{outline:2px solid var(--accent);background:var(--paper)}
+.pin::-webkit-inner-spin-button,.pin::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.pin{appearance:textfield;-moz-appearance:textfield}
+.pv{text-align:center;font-weight:600;font-variant-numeric:tabular-nums;color:var(--muted)}.pv.end{font-weight:800;font-size:16px;color:var(--ink)}.neg,.pv.neg{color:var(--p1)!important}
+.pnrow{padding:0 16px 6px 158px;font-size:12.5px;color:var(--p2);font-weight:600}
+.ptot{border-top:2px solid var(--line);padding-top:10px;padding-bottom:10px;font-weight:800}.ptot .pv{color:var(--ink);font-weight:800}
+.pact{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line)}
+@media (max-width:640px){.ukpi{grid-template-columns:repeat(2,minmax(0,1fr));padding:0 10px 10px}.utop,.uimp,.pact,.pchart{padding-left:10px;padding-right:10px}.pnote{margin:0 10px 10px}
+  .dsk{display:none}.prow{grid-template-columns:44px repeat(2,minmax(0,1fr)) 36px minmax(0,1fr) 40px;justify-content:stretch;gap:4px;padding:3px 8px}.pweek{padding-left:10px}.pday{font-size:13px}.phead{font-size:9.5px;letter-spacing:0}.pnrow{padding-left:56px}.pin{padding:8px 1px}}
+
 </style>
 </head>
 <body>
 
 <div class="wrap">
   <div class="top">
-    <nav class="tabs" aria-label="Viste"><button data-v="month">Mese</button><button id="goToday" data-today>Giorno</button><button data-v="upt">Riordino</button></nav>
+    <nav class="tabs" aria-label="Viste"><button data-v="month">Mese</button><button id="goToday" data-today>Giorno</button><button data-v="pal">Pallet</button></nav>
     <span class="sp"></span>
   </div>
   <main id="main" class="paper"><p class="loading">Caricamento del calendario…</p></main>
@@ -295,7 +299,7 @@ textarea.inp{font-family:var(--f-mono);font-size:13px;resize:vertical}
   <button data-v="month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M9 9v12M15 9v12M3 15h18"/></svg>Mese</button>
   <button class="plus" id="bAdd" aria-label="Nuova attività"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5v14M5 12h14"/></svg></span></button>
   <button id="bToday" data-today><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><rect x="7" y="12" width="4" height="4" rx="1"/></svg>Giorno</button>
-  <button data-v="upt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-5 9 5v8l-9 5-9-5z"/><path d="M3 9l9 5 9-5M12 14v8"/></svg>Riordino</button>
+  <button data-v="pal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="9" rx="1"/><path d="M2 18h20M5 18v3M12 18v3M19 18v3M4 14v4M20 14v4M12 5v9"/></svg>Pallet</button>
 </nav>
 <div id="modalRoot"></div><div id="toastRoot"></div><div id="alarmRoot"></div>
 
@@ -328,7 +332,7 @@ const nowHM=()=>{const d=new Date();return pad(d.getHours())+":"+pad(d.getMinute
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 
-const S={focus:null,view:["month","upt"].includes(ls.get("ag2.view"))?ls.get("ag2.view"):"day",date:today(),month:today().slice(0,8)+"01",rep:ls.get("ag2.rep")||"",
+const S={focus:null,view:["month","pal"].includes(ls.get("ag2.view"))?ls.get("ag2.view"):"day",date:today(),month:today().slice(0,8)+"01",rep:ls.get("ag2.rep")||"",
   rules:new Map(),tasksOpen:new Map(),tasksRecent:new Map(),tasks:new Map(),done:new Map(),
   ready:{rules:false,open:false,recent:false,done:false},base:null,noData:false};
 const main=document.getElementById("main");
@@ -402,8 +406,7 @@ function startData(uid){
   unsubs.push(col("tasks").where("open","==",true).limit(1000).onSnapshot(s=>{S.tasksOpen=new Map(s.docs.map(d=>[d.id,d.data()]));merge();S.ready.open=true;render()},fail));
   unsubs.push(col("tasks").where("date",">=",cut).limit(1000).onSnapshot(s=>{S.tasksRecent=new Map(s.docs.map(d=>[d.id,d.data()]));merge();S.ready.recent=true;render()},fail));
   unsubs.push(col("done").where("date",">=",cut).limit(1000).onSnapshot(s=>{S.done=new Map(s.docs.map(d=>[d.id,d.data()]));S.ready.done=true;render()},fail));
-  unsubs.push(col("upt").limit(1000).onSnapshot(s=>{S.upt=new Map(s.docs.map(d=>[d.id,d.data()]));uptSnapshot()},fail));
-  unsubs.push(col("uptcfg").limit(5).onSnapshot(s=>{const d=s.docs.find(x=>x.id==="main");S.uptCfg=Object.assign({},UCFG0,d?d.data():{});uptSnapshot()},fail));
+  unsubs.push(col("pallet").limit(5).onSnapshot(s=>{const d=s.docs.find(x=>x.id==="plan");S.pal=Object.assign({},PAL0,d?d.data():{});palSnapshot()},fail));
   AG.initNotifs();
 }
 async function boot(){
@@ -429,10 +432,10 @@ document.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>setView(b.dataset
 const goToday=()=>{S.focus=null;if(S.view!=="day"){setView("day")}else{S.date=today();render()}};
 document.getElementById("goToday").onclick=goToday;
 document.getElementById("bToday").onclick=goToday;
-document.getElementById("bAdd").onclick=()=>{if(!ready())return;if(S.view==="upt"){openProduct(null);return}openTask({pri:2,date:S.view==="day"?S.date:today()})};
+document.getElementById("bAdd").onclick=()=>{if(!ready())return;if(S.view==="pal"){const t=today(),rows=palRows();openPalDay(rows.some(r=>r.d===t)?t:rows[0].d);return}openTask({pri:2,date:S.view==="day"?S.date:today()})};
 (function(){let x0=null,y0=0;
   main.addEventListener("touchstart",e=>{if(e.touches.length!==1||e.target.closest(".filters"))return;x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
-  main.addEventListener("touchend",e=>{if(x0==null||S.view==="upt"){x0=null;return}const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+  main.addEventListener("touchend",e=>{if(x0==null||S.view==="pal"){x0=null;return}const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
     if(Math.abs(dx)<70||Math.abs(dy)>50)return;const n=dx<0?1:-1;
     if(S.view==="day"){S.date=addDays(S.date,n)}else{const d=parse(S.month);d.setMonth(d.getMonth()+n);S.month=fmt(d)}render()},{passive:true});
 })();
@@ -441,8 +444,8 @@ function render(what){
   document.querySelectorAll("[data-v]").forEach(b=>b.dataset.v===S.view?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
   document.querySelectorAll("[data-today]").forEach(b=>S.view==="day"?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
   if(S.noData||!ready())return;
-  if(S.view==="upt"){const ae=document.activeElement;if(ae&&ae.tagName==="INPUT"&&main.contains(ae)&&!what){S.uptPending=true;return}}
-  if(S.view==="month")renderMonth();else if(S.view==="upt")renderUpt();else renderDay();
+  if(S.view==="pal"){const ae=document.activeElement;if(ae&&ae.tagName==="INPUT"&&main.contains(ae)&&!what){S.palPending=true;return}}
+  if(S.view==="month")renderMonth();else if(S.view==="pal")renderPal();else renderDay();
   checkAlarms();queueNotifs();
 }
 /* notifiche sul telefono: prossimi 7 giorni */
@@ -696,155 +699,142 @@ function openShift(ctx){
   draw();
 }
 
-/* ---------- RIORDINO (UPT TOOL) ---------- */
-const CROSS=["D1","D2-D4","D7","D15","D16","Casse"];
-const RISK={BUCO:{n:"Buco",c:"var(--p1)",o:0},CRITICO:{n:"Critico",c:"var(--p1)",o:1},BASSO:{n:"Scorta bassa",c:"var(--p2)",o:2},OK:{n:"OK",c:"var(--ok)",o:3}};
-const UCFG0={arrival:"",scorta:20,wknd:30,upAll:0,upS:0,upC:0,space:{}};
-S.upt=new Map();S.uptCfg=Object.assign({},UCFG0);S.cross=CROSS.includes(ls.get("ag2.cross"))?ls.get("ag2.cross"):"D1";S.uptPending=false;
+/* ---------- PALLET · PIANO 3 SETTIMANE ---------- */
+const PAL0={start:"",initial:0,note:"",days:{}};
+S.pal=Object.assign({},PAL0);S.palPending=false;
 const num=v=>{const n=Number(String(v==null?"":v).replace(",","."));return isFinite(n)?n:0};
-function uptDays(){const a=S.uptCfg.arrival;if(!a)return 0;return Math.max(0,Math.round((parse(a)-parse(today()))/864e5))}
-/* stessi calcoli del foglio "Ordine" */
-function uptCalc(p,cfg){
-  const c=cfg||S.uptCfg,H=num(p.qRep)+num(p.qCross),J=num(p.s4),K=num(p.s3),L=num(p.s2),M=num(p.s1);
-  const N=(J+K+L+M)/4,O=N/7,U=(J>0&&M>0)?Math.pow(M/J,1/3)-1:0;
-  const V=num(c.upAll)/100+(p.tipo==="Stagionale"?num(c.upS)/100:num(c.upC)/100);
-  const days=uptDays(),P=O*days*(1+num(c.wknd)/100*2/7)*(1+U)*(1+V),Q=num(p.stock)-P;
-  const R=Math.max(0,Math.ceil(Math.round((H*(1+num(c.scorta)/100)-Q)*1e6)/1e6));
-  const risk=Q<0?"BUCO":Q<H*0.3?"CRITICO":Q<H*0.6?"BASSO":"OK";
-  return {H,N,U,V,P,Q,R,risk,days};
-}
-function crossItems(x){return [...S.upt.entries()].filter(([,p])=>p.cross===x).sort((a,b)=>(num(a[1].ord)-num(b[1].ord))||String(a[1].name||"").localeCompare(String(b[1].name||"")))}
-function uptSnapshot(){if(S.view==="upt")render()}
-const fmt1=x=>(Math.round(x*10)/10).toLocaleString("it-IT");
+const mondayOf=d=>addDays(d,-(wd(d)-1));
+const shortDay=d=>WD[wd(d)-1]+" "+parse(d).getDate();
+const has=v=>v!==undefined&&v!==null&&v!=="";
+/* stessi calcoli del foglio: alle 9 = iniziali − notte − mattina; fine = alle 9 + ricevuti; il giorno dopo parte dal fine giornata */
+function palRows(p){p=p||S.pal;const start=p.start||mondayOf(today());let cur=num(p.initial);const out=[];
+  for(let i=0;i<21;i++){const d=addDays(start,i),x=(p.days||{})[d]||{},n=num(x.n),m=num(x.m),r=num(x.r),ini=cur,at9=ini-n-m,end=at9+r;
+    out.push({d,i,ini,n,m,r,at9,end,x});cur=end}
+  return out}
+function palSave(next){S.pal=next;return safe(col("pallet").doc("plan").set(next))}
+function palSetDay(d,patch){const days=Object.assign({},S.pal.days||{}),x=Object.assign({},days[d]||{},patch);
+  Object.keys(x).forEach(k=>{if(!has(x[k]))delete x[k]});if(Object.keys(x).length)days[d]=x;else delete days[d];
+  return palSave(Object.assign({},S.pal,{days}))}
+function palSnapshot(){if(S.view==="pal")render()}
 
-function renderUpt(){
-  const c=S.uptCfg,days=uptDays(),all=[...S.upt.values()].map(p=>uptCalc(p));
-  const tot=all.reduce((s,x)=>s+x.R,0),crit=all.filter(x=>x.risk==="BUCO"||x.risk==="CRITICO").length,low=all.filter(x=>x.risk==="BASSO").length,ok=all.filter(x=>x.risk==="OK").length;
-  let h='<div class="utop"><div><h2 class="mname">Riordino</h2><div class="hint">'+(c.arrival?'Camion '+esc(longDate(c.arrival).toLowerCase())+' · '+(days?'tra '+days+(days===1?' giorno':' giorni'):'oggi o già arrivato'):'Imposta la data di arrivo del camion')+' · scorta '+num(c.scorta)+'%</div></div><button class="btn sm" id="uCfg">⚙ Parametri</button></div>';
-  h+='<div class="ukpi"><div class="k"><b>'+tot+'</b><span>da ordinare</span></div><div class="k" style="--kc:var(--p1)"><b>'+crit+'</b><span>buco / critico</span></div><div class="k" style="--kc:var(--p2)"><b>'+low+'</b><span>scorta bassa</span></div><div class="k" style="--kc:var(--ok)"><b>'+ok+'</b><span>ok</span></div></div>';
-  h+='<div class="ucross" role="group" aria-label="Cross">'+CROSS.map(x=>{const it=crossItems(x).map(([,p])=>uptCalc(p));const worst=it.reduce((w,r)=>RISK[r.risk].o<RISK[w].o?r.risk:w,"OK");const o=it.reduce((s,r)=>s+r.R,0);
-    return '<button class="uc'+(S.cross===x?' on':'')+'" data-cross="'+esc(x)+'" style="--rc:'+(it.length?RISK[worst].c:'var(--line)')+'"><b>'+esc(x)+'</b><span>'+(it.length?o+' da ord.':'vuoto')+'</span></button>'}).join("")+'</div>';
-  const items=crossItems(S.cross);
-  h+='<div class="ubar"><b>'+esc(S.cross)+'</b><span class="hint">'+items.length+(items.length===1?' prodotto':' prodotti')+'</span><span class="sp"></span><button class="btn sm" id="uCopy">Copia ordine</button><button class="btn primary sm" id="uAdd">+ Prodotto</button></div>';
-  if(!items.length)h+='<div class="hello">'+(S.upt.size?'Nessun prodotto in questo cross. ':'<b>Nessun prodotto.</b> ')+'Aggiungilo con "+ Prodotto"'+(S.upt.size?'.':', oppure importa il tuo file Excel UPT qui sotto.')+'</div>';
-  else{
-    h+='<div class="uhead"><span>Prodotto</span><span>Stock reale</span><span>Da ord.</span></div><ul class="ulist">';
-    items.forEach(([id,p])=>{const r=uptCalc(p),rk=RISK[r.risk];
-      h+='<li class="up" style="--rc:'+rk.c+'"><div class="ubody" data-edit="'+esc(id)+'"><div class="ut">'+esc(p.name||"Senza nome")+'</div><div class="meta">'+(p.kimball?'<span class="by">'+esc(p.kimball)+'</span>':'')+(p.color?'<span>'+esc(p.color)+'</span>':'')+'<span>nec. '+r.H+'</span><span>'+(p.tipo==="Stagionale"?'stag.':'cont.')+'</span><span class="rk">'+rk.n+'</span></div></div>'+
-        '<input class="ustock" type="number" inputmode="numeric" min="0" enterkeyhint="next" id="us-'+esc(id)+'" data-stock="'+esc(id)+'" value="'+esc(p.stock==null?"":p.stock)+'" aria-label="Stock reale '+esc(p.name||"")+'">'+
-        '<div class="uord"><b>'+r.R+'</b></div></li>'});
-    h+='</ul>';
-  }
-  const sp=(c.space||{})[S.cross]||{},inc=num(sp.rep)>0?num(sp.cross)/num(sp.rep):0;
-  const val=!num(sp.rep)?"Inserisci gli spazi":inc>0.4?"🔴 Troppo cross":inc>0.25?"🟡 Alta incidenza":inc>0.1?"🟢 Nella norma":"⬇ Bassa";
-  h+='<div class="uspace"><span class="lbl">Incidenza spazio cross · '+esc(S.cross)+'</span><div class="row3"><label>Reparto (ft)<input class="inp" type="number" inputmode="decimal" id="spRep" value="'+esc(sp.rep||"")+'"></label><label>Cross (ft)<input class="inp" type="number" inputmode="decimal" id="spCross" value="'+esc(sp.cross||"")+'"></label><div class="inc"><b>'+(num(sp.rep)?Math.round(inc*100)+'%':'—')+'</b><span>'+val+'</span></div></div></div>';
-  h+='<div class="uimp"><button class="linkbtn" id="uImp">Importa dal file Excel UPT</button><span class="hint"> · sostituisce i prodotti e i parametri</span><input type="file" id="uFile" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden></div>';
+function palChart(rows){
+  const W=640,H=150,pl=30,pr=6,pt=10,pb=22,vals=rows.map(r=>r.end).concat(rows.map(r=>r.at9));
+  const max=Math.max(10,...vals),min=Math.min(0,...vals),sy=v=>pt+(H-pt-pb)*(max-v)/(max-min),bw=(W-pl-pr)/21,t=today();
+  const step=max-min>120?50:max-min>60?20:10;let g="";
+  for(let v=Math.ceil(min/step)*step;v<=max;v+=step)g+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+sy(v)+'" y2="'+sy(v)+'" stroke="var(--line)"'+(v===0?' stroke-width="1.5"':'')+'/><text x="'+(pl-5)+'" y="'+(sy(v)+3.5)+'" font-size="10" text-anchor="end" fill="var(--muted)">'+v+'</text>';
+  rows.forEach((r,i)=>{const x=pl+i*bw+bw*.16,w=bw*.68,y0=sy(0),y=sy(r.end),neg=r.end<0;
+    g+='<rect x="'+x+'" y="'+Math.min(y,y0)+'" width="'+w+'" height="'+Math.max(1,Math.abs(y0-y))+'" rx="2" fill="'+(neg?'var(--p1)':r.d===t?'var(--accent)':'color-mix(in srgb,var(--accent) 45%,var(--paper))')+'"><title>'+shortDay(r.d)+': fine giornata '+r.end+'</title></rect>';
+    g+='<circle cx="'+(x+w/2)+'" cy="'+sy(r.at9)+'" r="2.6" fill="'+(r.at9<0?'var(--p1)':'var(--p2)')+'"><title>'+shortDay(r.d)+': alle 9 '+r.at9+'</title></circle>';
+    if(i%7===0||r.d===t)g+='<text x="'+(x+w/2)+'" y="'+(H-7)+'" font-size="10" text-anchor="middle" fill="'+(r.d===t?'var(--ink)':'var(--muted)')+'"'+(r.d===t?' font-weight="700"':'')+'>'+shortDay(r.d)+'</text>'});
+  return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Pallet a fine giornata nei 21 giorni">'+g+'</svg>';
+}
+
+function renderPal(){
+  const p=S.pal,rows=palRows(),t=today(),first=rows[0].d,last=rows[20].d;
+  const tot=k=>rows.reduce((s,r)=>s+r[k],0),now=rows.find(r=>r.d===t),neg=rows.filter(r=>r.at9<0||r.end<0);
+  let h='<div class="utop"><div><h2 class="mname">Pallet</h2><div class="hint">Piano 3 settimane · '+esc(shortDate(first))+' – '+esc(shortDate(last))+(p.start?'':' (imposta la data di inizio)')+'</div></div><button class="btn sm" id="pCfg">⚙ Piano</button></div>';
+  if(p.note)h+='<div class="pnote">📌 '+esc(p.note)+'</div>';
+  h+='<div class="ukpi"><div class="k"><b>'+(now?now.end:(t<first?num(p.initial):rows[20].end))+'</b><span>'+(now?'pallet oggi a fine giornata':t<first?'pallet di partenza':'pallet a fine piano')+'</span></div>'+
+    '<div class="k" style="--kc:var(--p2)"><b>'+(tot("n")+tot("m"))+'</b><span>lavorati ('+tot("n")+' notte · '+tot("m")+' mattina)</span></div>'+
+    '<div class="k" style="--kc:var(--ok)"><b>'+tot("r")+'</b><span>ricevuti in 3 settimane</span></div>'+
+    '<div class="k" style="--kc:'+(neg.length?'var(--p1)':'var(--accent)')+'"><b>'+rows[20].end+'</b><span>'+(neg.length?neg.length+' giorni sotto zero':'fine piano · '+esc(shortDay(last)))+'</span></div></div>';
+  h+='<div class="pchart"><div class="hint"><span class="lg" style="--c:color-mix(in srgb,var(--accent) 45%,var(--paper))"></span>fine giornata · <span class="lg dot" style="--c:var(--p2)"></span>alle 9</div>'+palChart(rows)+'</div>';
+  h+='<div class="ptable"><div class="prow phead"><span>Giorno</span><span class="dsk">Iniziali</span><span>Notte</span><span>Mattina 6:00</span><span>Alle 9</span><span>Ricevuti</span><span>Fine</span></div>';
+  rows.forEach(r=>{
+    if(r.i%7===0)h+='<div class="pweek">Settimana '+(r.i/7+1)+' · '+esc(shortDate(r.d))+' – '+esc(shortDate(addDays(r.d,6)))+'</div>';
+    const inp=(k,lab)=>'<input class="pin" type="number" inputmode="numeric" min="0" enterkeyhint="next" id="pi-'+k+'-'+r.d+'" data-d="'+r.d+'" data-k="'+k+'" value="'+(has(r.x[k])?esc(r.x[k]):'')+'" placeholder="0" aria-label="'+lab+' '+esc(shortDay(r.d))+'">';
+    h+='<div class="prow'+(r.d===t?' today':'')+(r.d<t?' past':'')+'" data-row="'+r.d+'"><button class="pday" data-day="'+r.d+'"><b>'+esc(WD[wd(r.d)-1])+'</b> '+parse(r.d).getDate()+(r.x.note?' <i>✎</i>':'')+'</button>'+
+      '<span class="pv dsk" data-o="ini">'+r.ini+'</span>'+inp("n","Lavorati notte")+inp("m","Lavorati mattina")+
+      '<span class="pv'+(r.at9<0?' neg':'')+'" data-o="at9">'+r.at9+'</span>'+inp("r","Ricevuti")+'<span class="pv end'+(r.end<0?' neg':'')+'" data-o="end">'+r.end+'</span></div>';
+    if(r.x.note)h+='<div class="pnrow">'+esc(r.x.note)+'</div>';
+  });
+  h+='<div class="prow ptot"><span>Totali</span><span class="dsk"></span><span class="pv" data-t="n">'+tot("n")+'</span><span class="pv" data-t="m">'+tot("m")+'</span><span></span><span class="pv" data-t="r">'+tot("r")+'</span><span class="pv end" data-t="end">'+rows[20].end+'</span></div></div>';
+  h+='<div class="pact"><button class="btn sm" id="pNext">Prossime 3 settimane →</button><button class="btn sm" id="pCopy">Copia riepilogo</button></div>';
+  h+='<div class="uimp"><button class="linkbtn" id="pImp">Importa dal file Excel pallet</button><span class="hint"> · sostituisce il piano attuale</span><input type="file" id="pFile" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden></div>';
   main.innerHTML=h;
-  main.querySelectorAll("[data-cross]").forEach(b=>b.onclick=()=>{S.cross=b.dataset.cross;ls.set("ag2.cross",S.cross);render()});
-  main.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>openProduct(b.dataset.edit));
-  document.getElementById("uAdd").onclick=()=>openProduct(null);
-  document.getElementById("uCfg").onclick=openUptCfg;
-  document.getElementById("uCopy").onclick=copyOrder;
-  const ins=[...main.querySelectorAll("[data-stock]")];
+  document.getElementById("pCfg").onclick=openPalCfg;
+  document.getElementById("pNext").onclick=palNext;
+  document.getElementById("pCopy").onclick=palCopy;
+  main.querySelectorAll("[data-day]").forEach(b=>b.onclick=()=>openPalDay(b.dataset.day));
+  const ins=[...main.querySelectorAll(".pin")];
   ins.forEach((el,i)=>{
     el.addEventListener("focus",()=>el.select());
-    const save=()=>{const id=el.dataset.stock,p=S.upt.get(id);if(!p)return;const v=el.value===""?0:Math.max(0,Math.round(num(el.value)));if(v===num(p.stock))return;
-      const r=uptCalc(Object.assign({},p,{stock:v})),rk=RISK[r.risk],li=el.closest(".up");
-      if(li){li.style.setProperty("--rc",rk.c);li.querySelector(".uord b").textContent=r.R;const k=li.querySelector(".rk");if(k)k.textContent=rk.n}
-      safe(col("upt").doc(id).update({stock:v,at:Date.now()}))};
+    const save=()=>{const d=el.dataset.d,k=el.dataset.k,cur=((S.pal.days||{})[d]||{})[k],v=el.value===""?"":Math.max(0,Math.round(num(el.value)));
+      if(String(cur==null?"":cur)===String(v))return;palSetDay(d,{[k]:v});palRefresh()};
     el.addEventListener("change",save);
     el.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();save();const n=ins[i+1];if(n)n.focus();else el.blur()}});
-    el.addEventListener("blur",()=>setTimeout(()=>{const a=document.activeElement;if(S.uptPending&&!(a&&a.tagName==="INPUT"&&main.contains(a))){S.uptPending=false;render("force")}},50));
+    el.addEventListener("blur",()=>setTimeout(()=>{const a=document.activeElement;if(S.palPending&&!(a&&a.tagName==="INPUT"&&main.contains(a))){S.palPending=false;render("force")}},50));
   });
-  const saveSpace=()=>{const rep=num(document.getElementById("spRep").value),cr=num(document.getElementById("spCross").value);const space=Object.assign({},c.space||{});space[S.cross]={rep,cross:cr};safe(col("uptcfg").doc("main").set(Object.assign({},S.uptCfg,{space})))};
-  ["spRep","spCross"].forEach(id=>{const e=document.getElementById(id);e.addEventListener("change",saveSpace);e.addEventListener("blur",()=>setTimeout(()=>{const a=document.activeElement;if(S.uptPending&&!(a&&a.tagName==="INPUT"&&main.contains(a))){S.uptPending=false;render("force")}},50))});
-  const f=document.getElementById("uFile");document.getElementById("uImp").onclick=()=>f.click();
-  f.onchange=()=>{const file=f.files&&f.files[0];if(file)importUpt(file);f.value=""};
+  const f=document.getElementById("pFile");document.getElementById("pImp").onclick=()=>f.click();
+  f.onchange=()=>{const file=f.files&&f.files[0];if(file)palImport(file);f.value=""};
+}
+/* aggiorna i numeri a cascata senza ridisegnare (così non si perde il campo in cui stai scrivendo) */
+function palRefresh(){const rows=palRows();
+  rows.forEach(r=>{const row=main.querySelector('[data-row="'+r.d+'"]');if(!row)return;
+    [["ini",r.ini],["at9",r.at9],["end",r.end]].forEach(([k,v])=>{const e=row.querySelector('[data-o="'+k+'"]');if(e){e.textContent=v;e.classList.toggle("neg",k!=="ini"&&v<0)}})});
+  const tot=k=>rows.reduce((s,r)=>s+r[k],0);
+  [["n",tot("n")],["m",tot("m")],["r",tot("r")],["end",rows[20].end]].forEach(([k,v])=>{const e=main.querySelector('[data-t="'+k+'"]');if(e)e.textContent=v});
+  const c=main.querySelector(".pchart svg");if(c)c.outerHTML=palChart(rows);
 }
 
-function openUptCfg(){
-  const c=Object.assign({},S.uptCfg);
-  let h='<h3>Parametri riordino</h3>';
-  h+='<div class="field"><label class="lbl" for="c-arr">Arrivo camion</label><input class="inp" type="date" id="c-arr" value="'+esc(c.arrival||"")+'"><span class="hint" id="c-days"></span></div>';
-  h+='<div class="grid2"><div class="field"><label class="lbl" for="c-sc">Scorta %</label><input class="inp" type="number" inputmode="decimal" id="c-sc" value="'+esc(c.scorta)+'"></div><div class="field"><label class="lbl" for="c-wk">Weekend +%</label><input class="inp" type="number" inputmode="decimal" id="c-wk" value="'+esc(c.wknd)+'"></div></div>';
-  h+='<div class="field"><span class="lbl">Uplift % (si somma al trend di ogni prodotto)</span><div class="grid3"><label>Tutti<input class="inp" type="number" inputmode="decimal" id="c-ua" value="'+esc(c.upAll)+'"></label><label>Stagionali<input class="inp" type="number" inputmode="decimal" id="c-us" value="'+esc(c.upS)+'"></label><label>Continuativi<input class="inp" type="number" inputmode="decimal" id="c-uc" value="'+esc(c.upC)+'"></label></div></div>';
+function openPalCfg(){
+  const p=S.pal;
+  let h='<h3>Piano pallet</h3>';
+  h+='<div class="field"><label class="lbl" for="pc-start">Data inizio</label><input class="inp" type="date" id="pc-start" value="'+esc(p.start||mondayOf(today()))+'"><span class="hint" id="pc-h"></span></div>';
+  h+='<div class="field"><label class="lbl" for="pc-ini">Pallet attuali (stock di partenza)</label><input class="inp" type="number" inputmode="numeric" id="pc-ini" value="'+esc(num(p.initial))+'"></div>';
+  h+='<div class="field"><label class="lbl" for="pc-note">Nota del piano</label><input class="inp" type="text" id="pc-note" value="'+esc(p.note||"")+'" placeholder="Es. target SOH 2.6"></div>';
   h+='<div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div>';
   mountSheet(h,"var(--accent)");
-  const dd=()=>{const a=document.getElementById("c-arr").value;const d=a?Math.max(0,Math.round((parse(a)-parse(today()))/864e5)):0;document.getElementById("c-days").textContent=a?(d?"Mancano "+d+(d===1?" giorno":" giorni"):"Oggi o già passato: il calcolo usa 0 giorni"):"Senza data il calcolo usa 0 giorni"};
-  dd();document.getElementById("c-arr").addEventListener("change",dd);
+  const hh=()=>{const v=document.getElementById("pc-start").value;document.getElementById("pc-h").textContent=v?(wd(v)===1?"Lunedì: ok.":"Attenzione: è "+WDL[wd(v)-1].toLowerCase()+", non lunedì."):""};hh();
+  document.getElementById("pc-start").addEventListener("change",hh);
   document.getElementById("cancel").onclick=closeSheet;
   document.getElementById("sf").addEventListener("submit",async e=>{e.preventDefault();const g=id=>document.getElementById(id).value;
-    const n=Object.assign({},S.uptCfg,{arrival:g("c-arr"),scorta:num(g("c-sc")),wknd:num(g("c-wk")),upAll:num(g("c-ua")),upS:num(g("c-us")),upC:num(g("c-uc"))});
-    closeSheet();await safe(col("uptcfg").doc("main").set(n),"Parametri salvati")});
+    closeSheet();await palSave(Object.assign({},S.pal,{start:g("pc-start")||mondayOf(today()),initial:num(g("pc-ini")),note:g("pc-note").trim()}));toast("Piano salvato");render("force")});
 }
 
-function openProduct(id){
-  const orig=id?S.upt.get(id):null;
-  const st=Object.assign({cross:S.cross,kimball:"",name:"",color:"",pos:"",qRep:0,qCross:0,tipo:"Continuativo",stock:0,s4:0,s3:0,s2:0,s1:0},orig||{});
-  let conf=false;
-  const F=(k,l,t,extra)=>'<label class="fl"><span>'+l+'</span><input class="inp" id="p-'+k+'" '+(t==="n"?'type="number" inputmode="numeric" min="0"':'type="text" autocomplete="off"')+' value="'+esc(st[k]==null?"":st[k])+'"'+(extra||'')+'></label>';
-  function grab(){["kimball","name","color","pos"].forEach(k=>{const e=document.getElementById("p-"+k);if(e)st[k]=e.value.trim()});
-    ["qRep","qCross","stock","s4","s3","s2","s1"].forEach(k=>{const e=document.getElementById("p-"+k);if(e)st[k]=e.value===""?0:Math.max(0,num(e.value))})}
-  function prev(){const r=uptCalc(st),rk=RISK[r.risk];
-    return '<div class="uprev" style="--rc:'+rk.c+'"><span>Totale necessario</span><b>'+r.H+'</b><span>Media vendite / sett.</span><b>'+fmt1(r.N)+'</b><span>Trend</span><b>'+(r.U>=0?'+':'')+Math.round(r.U*100)+'%</b><span>Vendite fino al camion</span><b>'+fmt1(r.P)+'</b><span>Stock all\'arrivo</span><b>'+fmt1(r.Q)+'</b><span>Rischio</span><b class="rk">'+rk.n+'</b><span class="big">Da ordinare</span><b class="big">'+r.R+'</b></div>'}
-  function draw(){
-    let h='<h3>'+(orig?"Modifica prodotto":"Nuovo prodotto")+' · '+esc(st.cross)+'</h3>';
-    h+='<input class="big" id="p-name" type="text" value="'+esc(st.name)+'" placeholder="Nome prodotto" autocomplete="off">';
-    h+='<div class="grid2">'+F("kimball","Kimball","t",' inputmode="numeric"')+F("color","Colore","t")+'</div>';
-    h+=F("pos","Posizionamento","t");
-    h+='<div class="field"><span class="lbl">Tipo</span>'+seg("tipo",[{k:"Continuativo",n:"Continuativo"},{k:"Stagionale",n:"Stagionale"}],st.tipo)+'</div>';
-    h+='<div class="grid3">'+F("qRep","Q.tà reparto","n")+F("qCross","Q.tà cross","n")+F("stock","Stock reale","n")+'</div>';
-    h+='<div class="field"><span class="lbl">Vendite ultime 4 settimane</span><div class="grid4">'+F("s4","S-4","n")+F("s3","S-3","n")+F("s2","S-2","n")+F("s1","S-1 (ultima)","n")+'</div></div>';
-    h+='<div id="p-prev">'+prev()+'</div>';
-    h+='<div class="field"><span class="lbl">Cross</span>'+seg("cross",CROSS.map(x=>({k:x,n:x})),st.cross)+'</div>';
-    h+='<div class="err" id="err" hidden></div>';
-    if(conf)h+='<div class="confirm"><span>Eliminare questo prodotto?</span><button type="button" class="btn sm" id="cNo">No</button><button type="button" class="btn sm danger" id="cYes">Elimina</button></div>';
-    h+='<div class="actions">'+(orig?'<button type="button" class="btn ghost danger" id="del">Elimina</button>':'')+'<span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div>';
-    mountSheet(h,"var(--accent)");
-    const f=document.getElementById("sf");
-    f.querySelectorAll("input").forEach(i=>i.addEventListener("input",()=>{grab();document.getElementById("p-prev").innerHTML=prev()}));
-    f.querySelectorAll("input[type=number]").forEach(i=>i.addEventListener("focus",()=>i.select()));
-    f.querySelectorAll("[data-seg]").forEach(b=>b.onclick=()=>{grab();st[b.dataset.seg]=b.dataset.val;draw()});
-    document.getElementById("cancel").onclick=closeSheet;
-    const del=document.getElementById("del");if(del)del.onclick=()=>{grab();conf=true;draw()};
-    const cn=document.getElementById("cNo");if(cn)cn.onclick=()=>{conf=false;draw()};
-    const cy=document.getElementById("cYes");if(cy)cy.onclick=async()=>{closeSheet();await safe(col("upt").doc(id).delete(),"Prodotto eliminato")};
-    f.addEventListener("submit",async e=>{e.preventDefault();grab();
-      if(!st.name&&!st.kimball){const er=document.getElementById("err");er.textContent="Scrivi almeno il nome o il Kimball.";er.hidden=false;return}
-      const data={cross:st.cross,kimball:st.kimball,name:st.name,color:st.color,pos:st.pos,qRep:st.qRep,qCross:st.qCross,tipo:st.tipo,stock:st.stock,s4:st.s4,s3:st.s3,s2:st.s2,s1:st.s1,
-        ord:orig?num(orig.ord):(crossItems(st.cross).reduce((m,[,p])=>Math.max(m,num(p.ord)),0)+1),at:Date.now()};
-      closeSheet();
-      await safe(orig?col("upt").doc(id).set(data):col("upt").add(data),orig?"Salvato":"Prodotto aggiunto")});
-    if(!orig)document.getElementById("p-name").focus();
-  }
-  draw();
+function openPalDay(d){
+  const rows=palRows(),r=rows.find(x=>x.d===d);if(!r)return;const x=Object.assign({},r.x);
+  const F=(k,l)=>'<label class="fl"><span>'+l+'</span><input class="inp" type="number" inputmode="numeric" min="0" id="pd-'+k+'" value="'+(has(x[k])?esc(x[k]):'')+'" placeholder="0"></label>';
+  const prev=()=>{const n=num(document.getElementById("pd-n").value),m=num(document.getElementById("pd-m").value),rc=num(document.getElementById("pd-r").value),a=r.ini-n-m;
+    return '<div class="uprev" style="--rc:var(--accent)"><span>Pallet iniziali</span><b>'+r.ini+'</b><span>Pallet alle 9</span><b'+(a<0?' class="neg"':'')+'>'+a+'</b><span class="big">Fine giornata</span><b class="big'+(a+rc<0?' neg':'')+'">'+(a+rc)+'</b></div>'};
+  let h='<h3>'+esc(longDate(d))+'</h3><div class="grid3">'+F("n","Lavorati notte")+F("m","Lavorati 6:00")+F("r","Ricevuti")+'</div><div id="pd-prev"></div>';
+  h+='<div class="field"><label class="lbl" for="pd-note">Nota del giorno</label><input class="inp" type="text" id="pd-note" value="'+esc(x.note||"")+'" placeholder="Es. valutare notturno"></div>';
+  h+='<div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div>';
+  mountSheet(h,"var(--accent)");
+  const pv=document.getElementById("pd-prev");pv.innerHTML=prev();
+  ["n","m","r"].forEach(k=>document.getElementById("pd-"+k).addEventListener("input",()=>pv.innerHTML=prev()));
+  document.getElementById("cancel").onclick=closeSheet;
+  document.getElementById("sf").addEventListener("submit",async e=>{e.preventDefault();const g=k=>document.getElementById("pd-"+k).value;
+    const val=k=>g(k)===""?"":Math.max(0,Math.round(num(g(k))));
+    closeSheet();await palSetDay(d,{n:val("n"),m:val("m"),r:val("r"),note:g("note").trim()});render("force")});
 }
 
-async function copyOrder(){
-  const rows=crossItems(S.cross).map(([,p])=>[p,uptCalc(p)]).filter(([,r])=>r.R>0);
-  const c=S.uptCfg;
-  const txt="Ordine cross "+S.cross+(c.arrival?" · camion "+longDate(c.arrival).toLowerCase():"")+"\n"+(rows.length?rows.map(([p,r])=>(p.kimball?p.kimball+" ":"")+(p.name||"")+(p.color?" ("+p.color+")":"")+": "+r.R).join("\n")+"\nTotale: "+rows.reduce((s,[,r])=>s+r.R,0):"Niente da ordinare.");
-  try{await navigator.clipboard.writeText(txt);toast("Ordine copiato: incollalo dove vuoi")}
-  catch(e){mountSheet('<h3>Ordine '+esc(S.cross)+'</h3><textarea class="inp" id="ordTxt" rows="10" readonly>'+esc(txt)+'</textarea><span class="hint">Tieni premuto sul testo per copiarlo.</span><div class="actions"><span class="sp"></span><button type="button" class="btn primary" id="cancel">Chiudi</button></div>',"var(--accent)");
+function palNext(){
+  const rows=palRows(),ns=addDays(rows[0].d,21),ini=rows[20].end;
+  mountSheet('<h3>Prossime 3 settimane</h3><p style="margin:0">Il nuovo piano parte da <b>'+esc(longDate(ns).toLowerCase())+'</b> con <b>'+ini+'</b> pallet (il fine giornata di '+esc(longDate(rows[20].d).toLowerCase())+'). I dati già inseriti per quei giorni restano.</p><div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Inizia</button></div>',"var(--accent)");
+  document.getElementById("cancel").onclick=closeSheet;
+  document.getElementById("sf").addEventListener("submit",async e=>{e.preventDefault();closeSheet();
+    const keep={};Object.entries(S.pal.days||{}).forEach(([d,x])=>{if(d>=addDays(ns,-42))keep[d]=x});
+    await palSave(Object.assign({},S.pal,{start:ns,initial:ini,days:keep}));toast("Nuovo piano dal "+shortDate(ns));render("force")});
+}
+
+async function palCopy(){
+  const rows=palRows(),p=S.pal;
+  const txt="Piano pallet "+shortDate(rows[0].d)+" – "+shortDate(rows[20].d)+(p.note?"\n"+p.note:"")+"\nPartenza: "+num(p.initial)+" pallet\n"+
+    rows.map(r=>shortDay(r.d)+": alle 9 "+r.at9+" · fine "+r.end+((r.n||r.m||r.r)?" (notte "+r.n+", mattina "+r.m+", ricevuti "+r.r+")":"")+(r.x.note?" – "+r.x.note:"")).join("\n")+
+    "\nTotali: lavorati "+rows.reduce((s,r)=>s+r.n+r.m,0)+", ricevuti "+rows.reduce((s,r)=>s+r.r,0)+", fine piano "+rows[20].end;
+  try{await navigator.clipboard.writeText(txt);toast("Riepilogo copiato: incollalo dove vuoi")}
+  catch(e){mountSheet('<h3>Riepilogo pallet</h3><textarea class="inp" id="ordTxt" rows="12" readonly>'+esc(txt)+'</textarea><span class="hint">Tieni premuto sul testo per copiarlo.</span><div class="actions"><span class="sp"></span><button type="button" class="btn primary" id="cancel">Chiudi</button></div>',"var(--accent)");
     document.getElementById("cancel").onclick=closeSheet;const t=document.getElementById("ordTxt");t.focus();t.select()}
 }
 
-async function importUpt(file){
-  let res;
-  try{res=AG.parseUpt(await file.arrayBuffer())}catch(e){toast("Questo file non sembra l'UPT Tool. Controlla di aver scelto il file giusto.");return}
-  const n=res.products.length,cur=S.upt.size;
-  const by=CROSS.map(x=>x+": "+res.products.filter(p=>p.cross===x).length).join(" · ");
-  mountSheet('<h3>Importa file UPT</h3><p style="margin:0">Trovati <b>'+n+'</b> prodotti.<br><span class="hint">'+esc(by)+'</span></p>'+(cur?'<div class="confirm"><span>I '+cur+' prodotti attuali verranno sostituiti.</span></div>':'')+'<div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Importa</button></div>',"var(--accent)");
+async function palImport(file){
+  let res;try{res=AG.parsePallet(await file.arrayBuffer())}catch(e){toast("Questo file non sembra il calcolo pallet. Controlla di aver scelto il file giusto.");return}
+  const n=Object.keys(res.days).length;
+  mountSheet('<h3>Importa piano pallet</h3><p style="margin:0">Inizio <b>'+esc(longDate(res.start).toLowerCase())+'</b>, partenza <b>'+res.initial+'</b> pallet, <b>'+n+'</b> giorni compilati.'+(res.note?'<br><span class="hint">Nota: '+esc(res.note)+'</span>':'')+'</p><div class="confirm"><span>Il piano attuale verrà sostituito.</span></div><div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Importa</button></div>',"var(--accent)");
   document.getElementById("cancel").onclick=closeSheet;
-  document.getElementById("sf").addEventListener("submit",async e=>{e.preventDefault();closeSheet();toast("Importazione in corso…");
-    try{
-      for(const id of [...S.upt.keys()])await col("upt").doc(id).delete();
-      for(const p of res.products)await col("upt").add(Object.assign(p,{at:Date.now()}));
-      await col("uptcfg").doc("main").set(Object.assign({},UCFG0,res.cfg));
-      const first=CROSS.find(x=>res.products.some(p=>p.cross===x));if(first){S.cross=first;ls.set("ag2.cross",first)}
-      toast(n+" prodotti importati");render();
-    }catch(x){toast("Importazione interrotta: controlla la connessione e riprova.")}
-  });
+  document.getElementById("sf").addEventListener("submit",async e=>{e.preventDefault();closeSheet();
+    if(await palSave(Object.assign({},PAL0,res)))toast("Piano importato");render("force")});
 }
 
 /* ---------- avvisi e sveglie ---------- */
