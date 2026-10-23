@@ -181,7 +181,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 }
 .bnav{display:none}
 @media (max-width:640px){
-  .bnav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:end;position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--paper);border-top:1px solid var(--line);
+  .bnav{display:grid;grid-template-columns:repeat(5,1fr);align-items:end;position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--paper);border-top:1px solid var(--line);
     padding:4px env(safe-area-inset-right,0px) calc(4px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px)}
   .bnav button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:10px;font-weight:700;color:var(--muted);padding:2px 0}
   .bnav button svg{width:18px;height:18px}
@@ -252,6 +252,8 @@ body{padding-top:env(safe-area-inset-top,0px)}
 .ukpi .k{border:1px solid var(--line);border-top:4px solid var(--kc,var(--accent));border-radius:10px;padding:8px 10px;background:var(--paper);min-width:0}
 .ukpi b{display:block;font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--kc,var(--ink));line-height:1.1}
 .ukpi span{font-size:11.5px;color:var(--muted);font-weight:600}
+.ubar{display:flex;align-items:center;gap:8px;padding:10px 16px;border-top:1px solid var(--line);flex-wrap:wrap}.ubar b{font-size:15px}
+.phead span{overflow-wrap:anywhere;hyphens:auto}
 .uspace{padding:12px 16px;border-top:1px solid var(--line);display:grid;gap:8px}
 .row3,.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:end}
 .row3 label,.grid3 label,.fl{display:grid;gap:4px;font-size:12px;color:var(--muted);font-weight:600;min-width:0}
@@ -268,14 +270,17 @@ textarea.inp{font-family:var(--f-mono);font-size:13px;resize:vertical}
 .lg{display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--c);vertical-align:-1px;margin-right:4px}.lg.dot{border-radius:50%;width:8px;height:8px}
 .ptable{border-top:1px solid var(--line)}
 .prow{display:grid;grid-template-columns:72px 64px 104px 104px 64px 104px 64px;justify-content:start;gap:6px;align-items:center;padding:4px 16px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
-.phead{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);border-top:0;padding-top:8px;padding-bottom:6px;text-align:center}.phead span:first-child{text-align:left}
+.phead{align-items:end;line-height:1.15;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);border-top:0;padding-top:8px;padding-bottom:6px;text-align:center}.phead span:first-child{text-align:left}
 .prow.today{background:color-mix(in srgb,var(--accent) 9%,var(--paper));box-shadow:inset 3px 0 0 var(--accent)}
 .prow.past .pday{color:var(--muted)}
 .pweek{padding:10px 16px 4px;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);border-top:1px solid var(--line)}
 .pday{border:0;background:none;text-align:left;padding:6px 0;font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}.pday i{font-style:normal;color:var(--p2)}
-.pin{width:100%;min-width:0;border:1px solid var(--line);border-radius:7px;background:var(--sunk);padding:7px 2px;font-size:16px;font-weight:600;text-align:center;font-variant-numeric:tabular-nums}
+.pin{width:100%;min-width:0;border:1px solid color-mix(in srgb,var(--p2) 45%,var(--line));border-radius:7px;background:color-mix(in srgb,var(--p2) 13%,var(--paper));padding:7px 2px;font-size:16px;font-weight:600;text-align:center;font-variant-numeric:tabular-nums}
 .pin::placeholder{color:color-mix(in srgb,var(--muted) 55%,transparent)}
-.pin:focus{outline:2px solid var(--accent);background:var(--paper)}
+.pin:focus{outline:2px solid var(--p2);background:var(--paper)}
+.ph-in{color:var(--p2)}
+.ukpi b small{font-size:12px;font-weight:700;color:var(--muted)}
+.pscroll{overflow-x:auto}.pscroll svg{min-width:600px}
 .pin::-webkit-inner-spin-button,.pin::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.pin{appearance:textfield;-moz-appearance:textfield}
 .pv{text-align:center;font-weight:600;font-variant-numeric:tabular-nums;color:var(--muted)}.pv.end{font-weight:800;font-size:16px;color:var(--ink)}.neg,.pv.neg{color:var(--p1)!important}
 .pnrow{padding:0 16px 6px 158px;font-size:12.5px;color:var(--p2);font-weight:600}
@@ -284,22 +289,54 @@ textarea.inp{font-family:var(--f-mono);font-size:13px;resize:vertical}
 @media (max-width:640px){.ukpi{grid-template-columns:repeat(2,minmax(0,1fr));padding:0 10px 10px}.utop,.uimp,.pact,.pchart{padding-left:10px;padding-right:10px}.pnote{margin:0 10px 10px}
   .dsk{display:none}.prow{grid-template-columns:44px repeat(2,minmax(0,1fr)) 36px minmax(0,1fr) 40px;justify-content:stretch;gap:4px;padding:3px 8px}.pweek{padding-left:10px}.pday{font-size:13px}.phead{font-size:9.5px;letter-spacing:0}.pnrow{padding-left:56px}.pin{padding:8px 1px}}
 
+/* HOME, IMPOSTAZIONI, TURNI TIPO */
+.vsw{display:inline-flex;gap:3px;margin:14px 16px 0;background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:3px}
+.vsw button{border:0;background:none;border-radius:999px;padding:6px 16px;font-weight:700;font-size:13.5px;color:var(--muted)}
+.vsw button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 2px color-mix(in srgb,var(--ink) 15%,transparent)}
+.home{padding:18px 16px 20px}
+.hhead .rel{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+.hhead h2{margin:2px 0 16px;font-family:var(--f-script);font-weight:400;font-size:clamp(28px,5vw,40px);line-height:1.1}
+.hgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.hcard{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:16px;min-width:0;color:var(--ink);box-shadow:0 1px 2px color-mix(in srgb,var(--ink) 5%,transparent)}
+.hcard:hover{border-color:var(--accent)}
+.hic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--hc) 14%,var(--paper));color:var(--hc)}.hic svg{width:22px;height:22px}
+.hti{font-size:18px;font-weight:800}
+.hsh{display:flex;gap:6px;flex-wrap:wrap}.hsh i{font-style:normal;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--sc);color:var(--paper)}.hsh i.none{background:var(--sunk);color:var(--muted)}
+.hnum{font-size:13.5px;color:var(--muted)}.hnum b{color:var(--ink);font-size:15px}.hnum b.u{color:var(--p1)}
+.hlist{display:grid;gap:4px;width:100%;min-width:0}.hlist span{font-size:13px;font-weight:600;padding-left:8px;border-left:3px solid var(--pc,var(--line));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hlist em{font-style:normal;color:var(--muted);font-family:var(--f-mono);font-size:11.5px}.hlist .more,.hlist .none{border-left:0;padding-left:0;color:var(--muted);font-weight:500}
+.hgo{margin-top:auto;padding-top:4px;font-size:13px;font-weight:800;color:var(--accent)}
+.sset{padding:4px 16px 16px;border-top:1px solid var(--line)}.sset:first-of-type{border-top:0}
+.shead{display:flex;align-items:center;gap:8px;padding:12px 0 4px}.shead h3{margin:0;font-size:16px;flex:1}
+.sp0{margin:4px 0 10px}
+.tpre{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.tlist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.titem{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--line);border-left:5px solid var(--sc);border-radius:10px;background:var(--paper);padding:12px 14px}
+.tdot{width:12px;height:12px;border-radius:50%;background:var(--sc);flex:none;display:inline-block}.tdot.big{width:16px;height:16px;margin-right:10px;vertical-align:4px}
+.tn{flex:1;display:grid;min-width:0}.tn b{font-size:15px}.tn span{font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+.tc{font-size:13px;font-weight:700;color:var(--muted)}
+.tagtp{font-size:11px;font-weight:700;padding:0 6px;border-radius:4px;background:var(--sunk);border:1px solid var(--line);color:var(--muted)}
+.tinfo{display:grid;gap:4px;border:1px solid var(--line);border-left:5px solid var(--sc);border-radius:10px;padding:10px 12px;font-size:13px}.tinfo span{color:var(--muted)}
+.tl2 .item{padding:12px 16px}.tl2 .body{cursor:pointer}
+@media (max-width:860px){.hgrid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.ubar{padding-left:10px;padding-right:10px}.home{padding:14px 10px}.sset{padding-left:10px;padding-right:10px}.vsw{margin:10px 10px 0}.bnav button{font-size:9.5px}}
 </style>
 </head>
 <body>
 
 <div class="wrap">
   <div class="top">
-    <nav class="tabs" aria-label="Viste"><button data-v="month">Mese</button><button id="goToday" data-today>Giorno</button><button data-v="pal">Pallet</button></nav>
+    <nav class="tabs" aria-label="Sezioni"><button data-v="home">Home</button><button data-cal>Calendario</button><button data-v="pal">Pallet</button><button data-v="set">Impostazioni</button></nav>
     <span class="sp"></span>
   </div>
   <main id="main" class="paper"><p class="loading">Caricamento del calendario…</p></main>
 </div>
 <nav class="bnav" aria-label="Navigazione">
-  <button data-v="month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M9 9v12M15 9v12M3 15h18"/></svg>Mese</button>
-  <button class="plus" id="bAdd" aria-label="Nuova attività"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5v14M5 12h14"/></svg></span></button>
-  <button id="bToday" data-today><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><rect x="7" y="12" width="4" height="4" rx="1"/></svg>Giorno</button>
+  <button data-v="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+  <button data-cal><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><rect x="7" y="12" width="4" height="4" rx="1"/></svg>Calendario</button>
+  <button class="plus" id="bAdd" aria-label="Aggiungi"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5v14M5 12h14"/></svg></span></button>
   <button data-v="pal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="9" rx="1"/><path d="M2 18h20M5 18v3M12 18v3M19 18v3M4 14v4M20 14v4M12 5v9"/></svg>Pallet</button>
+  <button data-v="set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>Impostazioni</button>
 </nav>
 <div id="modalRoot"></div><div id="toastRoot"></div><div id="alarmRoot"></div>
 
@@ -332,7 +369,7 @@ const nowHM=()=>{const d=new Date();return pad(d.getHours())+":"+pad(d.getMinute
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 
-const S={focus:null,view:["month","pal"].includes(ls.get("ag2.view"))?ls.get("ag2.view"):"day",date:today(),month:today().slice(0,8)+"01",rep:ls.get("ag2.rep")||"",
+const S={focus:null,view:"home",tpl:new Map(),tplId:"",email:"",date:today(),month:today().slice(0,8)+"01",rep:ls.get("ag2.rep")||"",
   rules:new Map(),tasksOpen:new Map(),tasksRecent:new Map(),tasks:new Map(),done:new Map(),
   ready:{rules:false,open:false,recent:false,done:false},base:null,noData:false};
 const main=document.getElementById("main");
@@ -350,6 +387,9 @@ function tasksOn(d,withCarry){
     if(x.date===d)out.push({id,src:"task",it:x,date:d,done:x.open===false,key:id});
     else if(withCarry&&d===t&&x.open!==false&&x.date<t)out.push({id,src:"task",it:x,date:x.date,done:false,key:id,carry:true});
   }
+  for(const s of shiftsOn(d)){const tp=s.it.tpl&&S.tpl.get(s.it.tpl);if(!tp)continue;
+    (tp.tasks||[]).forEach(k=>{const key="T_"+s.id+"_"+k.id+"_"+d,dn=S.done.get(key);if(dn&&dn.skip)return;
+      out.push({id:k.id,src:"tpl",tplId:s.it.tpl,shiftId:s.id,tplName:tp.name,it:Object.assign({days:[]},k),date:d,done:!!dn,key})})}
   return out;
 }
 function shiftsOn(d){
@@ -358,7 +398,7 @@ function shiftsOn(d){
     if(r.kind!=="shift")continue;
     if(r.repeat){if(!(r.days||[]).includes(w)||(r.from&&d<r.from)||(r.skip||[]).includes(d))continue}
     else if(r.date!==d)continue;
-    out.push({id,it:r});
+    out.push({id,it:resolveShift(r)});
   }
   return out.sort((a,b)=>(a.it.start||"").localeCompare(b.it.start||""));
 }
@@ -406,6 +446,7 @@ function startData(uid){
   unsubs.push(col("tasks").where("open","==",true).limit(1000).onSnapshot(s=>{S.tasksOpen=new Map(s.docs.map(d=>[d.id,d.data()]));merge();S.ready.open=true;render()},fail));
   unsubs.push(col("tasks").where("date",">=",cut).limit(1000).onSnapshot(s=>{S.tasksRecent=new Map(s.docs.map(d=>[d.id,d.data()]));merge();S.ready.recent=true;render()},fail));
   unsubs.push(col("done").where("date",">=",cut).limit(1000).onSnapshot(s=>{S.done=new Map(s.docs.map(d=>[d.id,d.data()]));S.ready.done=true;render()},fail));
+  unsubs.push(col("shtpl").limit(200).onSnapshot(s=>{S.tpl=new Map(s.docs.map(d=>[d.id,d.data()]));if(S.view!=="pal")render()},fail));
   unsubs.push(col("pallet").limit(5).onSnapshot(s=>{const d=s.docs.find(x=>x.id==="plan");S.pal=Object.assign({},PAL0,d?d.data():{});palSnapshot()},fail));
   AG.initNotifs();
 }
@@ -413,7 +454,7 @@ async function boot(){
   if(!window.AG){main.innerHTML='<div class="hello"><b>App non caricata.</b> Riapri l\'app.</div>';return}
   if(!AG.configured){S.noData=true;main.innerHTML='<div class="hello"><b>Configurazione mancante.</b> Manca il collegamento a Firebase.</div>';return}
   AG.onNotifTap(x=>{if(x&&x.date){S.date=x.date;S.focus=null;setView("day")}});
-  AG.onAuth(u=>{if(u)startData(u.uid);else{unsubs.forEach(f=>{try{f()}catch(e){}});unsubs=[];showLogin("login")}});
+  AG.onAuth(u=>{if(u){S.email=u.email||"";S.view="home";startData(u.uid)}else{unsubs.forEach(f=>{try{f()}catch(e){}});unsubs=[];showLogin("login")}});
 }
 async function logout(){try{await AG.scheduleNotifs([])}catch(e){}await AG.logout()}
 const ready=()=>S.ready.rules&&S.ready.open&&S.ready.recent&&S.ready.done;
@@ -427,25 +468,27 @@ async function toggle(o){
 }
 
 /* ---------- viste ---------- */
-function setView(v){S.view=v;ls.set("ag2.view",v);render();window.scrollTo(0,0)}
+function setView(v){S.view=v;if(v==="day"||v==="month")ls.set("ag2.cal",v);render();window.scrollTo(0,0)}
 document.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>setView(b.dataset.v));
-const goToday=()=>{S.focus=null;if(S.view!=="day"){setView("day")}else{S.date=today();render()}};
-document.getElementById("goToday").onclick=goToday;
-document.getElementById("bToday").onclick=goToday;
-document.getElementById("bAdd").onclick=()=>{if(!ready())return;if(S.view==="pal"){const t=today(),rows=palRows();openPalDay(rows.some(r=>r.d===t)?t:rows[0].d);return}openTask({pri:2,date:S.view==="day"?S.date:today()})};
+const goCal=()=>{S.focus=null;if(S.view==="day"||S.view==="month"){S.date=today();S.month=today().slice(0,8)+"01";render()}else setView(ls.get("ag2.cal")==="month"?"month":"day")};
+document.querySelectorAll("[data-cal]").forEach(b=>b.onclick=goCal);
+function calSwitch(){return '<div class="vsw" role="group" aria-label="Vista calendario"><button data-cv="day" aria-pressed="'+(S.view==="day")+'">Giorno</button><button data-cv="month" aria-pressed="'+(S.view==="month")+'">Mese</button></div>'}
+function bindCalSwitch(){main.querySelectorAll("[data-cv]").forEach(b=>b.onclick=()=>{if(b.dataset.cv==="month")S.month=S.date.slice(0,8)+"01";setView(b.dataset.cv)})}
+document.getElementById("bAdd").onclick=()=>{if(!ready())return;if(S.view==="pal"){const t=today(),rows=palRows();openPalDay(rows.some(r=>r.d===t)?t:rows[0].d);return}if(S.view==="set"){openTplEdit(null);return}if(S.view==="tpl"){openTplTask(S.tplId,null);return}openTask({pri:2,date:S.view==="day"?S.date:today()})};
 (function(){let x0=null,y0=0;
   main.addEventListener("touchstart",e=>{if(e.touches.length!==1||e.target.closest(".filters"))return;x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
-  main.addEventListener("touchend",e=>{if(x0==null||S.view==="pal"){x0=null;return}const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+  main.addEventListener("touchend",e=>{if(x0==null||(S.view!=="day"&&S.view!=="month")){x0=null;return}const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
     if(Math.abs(dx)<70||Math.abs(dy)>50)return;const n=dx<0?1:-1;
     if(S.view==="day"){S.date=addDays(S.date,n)}else{const d=parse(S.month);d.setMonth(d.getMonth()+n);S.month=fmt(d)}render()},{passive:true});
 })();
 
 function render(what){
   document.querySelectorAll("[data-v]").forEach(b=>b.dataset.v===S.view?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
-  document.querySelectorAll("[data-today]").forEach(b=>S.view==="day"?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
+  document.querySelectorAll("[data-cal]").forEach(b=>S.view==="day"||S.view==="month"?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
+  document.querySelectorAll('[data-v="set"]').forEach(b=>{if(S.view==="tpl")b.setAttribute("aria-current","page")});
   if(S.noData||!ready())return;
   if(S.view==="pal"){const ae=document.activeElement;if(ae&&ae.tagName==="INPUT"&&main.contains(ae)&&!what){S.palPending=true;return}}
-  if(S.view==="month")renderMonth();else if(S.view==="pal")renderPal();else renderDay();
+  if(S.view==="home")renderHome();else if(S.view==="month")renderMonth();else if(S.view==="pal")renderPal();else if(S.view==="set")renderSet();else if(S.view==="tpl")renderTpl();else renderDay();
   checkAlarms();queueNotifs();
 }
 /* notifiche sul telefono: prossimi 7 giorni */
@@ -468,7 +511,7 @@ function queueNotifs(){
 function renderMonth(){
   const first=parse(S.month),y=first.getFullYear(),m=first.getMonth(),t=today();
   const start=addDays(S.month,-(wd(S.month)-1));
-  let h='<div class="mtop"><div class="mtitle"><h2 class="mname">'+MON[m]+'</h2><span class="year">'+y+'</span></div><button class="logout" id="mOut">Esci</button><button class="btn primary sm" id="mShift">+ Turno</button><button class="nav" id="mp" aria-label="Mese precedente">‹</button><button class="nav" id="mn" aria-label="Mese successivo">›</button></div>';
+  let h=calSwitch()+'<div class="mtop"><div class="mtitle"><h2 class="mname">'+MON[m]+'</h2><span class="year">'+y+'</span></div><button class="btn primary sm" id="mShift">+ Turno</button><button class="nav" id="mp" aria-label="Mese precedente">‹</button><button class="nav" id="mn" aria-label="Mese successivo">›</button></div>';
   h+='<div class="legend">'+PRI.map(p=>'<span style="--pc:'+p.c+'"><i></i>'+p.n+'</span>').join("")+'</div>';
   h+='<div class="mgrid">'+WDL.map((w,i)=>'<div class="wh" style="--wc:'+wcOf(i+1)+'"><span class="l">'+w+'</span><span class="s">'+WD[i]+'</span></div>').join("");
   for(let i=0;i<42;i++){
@@ -491,7 +534,7 @@ function renderMonth(){
   main.innerHTML=h;
   main.querySelectorAll(".cell").forEach(c=>{const go=()=>{S.date=c.dataset.d;setView("day")};c.onclick=go;c.onkeydown=e=>{if(e.target===c&&(e.key==="Enter"||e.key===" ")){e.preventDefault();go()}}});
   main.querySelectorAll(".cell .sh").forEach(b=>b.onclick=e=>{e.stopPropagation();openShift({id:b.dataset.sid||null,date:b.dataset.sd})});
-  document.getElementById("mOut").onclick=logout;
+  bindCalSwitch();
   document.getElementById("mShift").onclick=()=>openShift({date:today()});
   const mv=n=>{const d=parse(S.month);d.setMonth(d.getMonth()+n);S.month=fmt(d);render()};
   document.getElementById("mp").onclick=()=>mv(-1);document.getElementById("mn").onclick=()=>mv(1);
@@ -504,6 +547,7 @@ function itemHTML(o){
   if(it.rep)meta.push('<span class="rep">'+esc(it.rep)+'</span>');
   if(it.by){const late=!o.done&&(o.carry||(o.date===t&&nowHM()>it.by)||o.date<t);meta.push('<span class="by'+(late?' late':'')+'">entro le '+esc(it.by)+(it.alarm!==""&&it.alarm!=null?' ⏰':'')+'</span>')}
   if(o.src==="rule")meta.push('<span title="Si ripete ogni settimana">↻</span>');
+  if(o.src==="tpl")meta.push('<span class="tagtp">'+esc(o.tplName)+'</span>');
   if(o.carry)meta.push('<span class="tag">dal '+esc(shortDate(o.date))+'</span>');
   return '<li class="item'+(o.done?' done':'')+'"><button class="chk" data-act="tog" data-k="'+esc(o.key)+'" aria-label="'+(o.done?'Segna da fare':'Segna come fatta')+'">'+CHECK+'</button><div class="body" data-act="edit" data-k="'+esc(o.key)+'"><div class="t">'+esc(it.title)+'</div>'+(meta.length?'<div class="meta">'+meta.join("")+'</div>':'')+'</div></li>';
 }
@@ -512,7 +556,7 @@ function renderDay(){
   let occ=tasksOn(d,true);
   const total=occ.length,done=occ.filter(o=>o.done).length;
   const shown=S.rep?occ.filter(o=>o.it.rep===S.rep):occ;
-  let h='<div class="dtop" style="--wc:'+wcOf(w)+'"><button class="nav" id="dp" aria-label="Giorno precedente">‹</button><div class="dtitle"><div class="rel">'+esc(relLabel(d))+'</div><h2>'+esc(longDate(d))+'</h2></div>'+(d!==today()?'<button class="btn sm" id="dToday">Oggi</button>':'')+'<button class="nav" id="dn" aria-label="Giorno successivo">›</button>';
+  let h=calSwitch()+'<div class="dtop" style="--wc:'+wcOf(w)+'"><button class="nav" id="dp" aria-label="Giorno precedente">‹</button><div class="dtitle"><div class="rel">'+esc(relLabel(d))+'</div><h2>'+esc(longDate(d))+'</h2></div>'+(d!==today()?'<button class="btn sm" id="dToday">Oggi</button>':'')+'<button class="nav" id="dn" aria-label="Giorno successivo">›</button>';
   h+='<div class="count"><b>'+done+' su '+total+' fatte</b><div class="bar"><i style="width:'+(total?Math.round(done/total*100):0)+'%"></i></div></div></div>';
   h+='<div class="dband">';
   shiftsOn(d).forEach(s=>{h+='<button class="shift" data-shift="'+esc(s.id)+'" style="--sc:'+shcOf(s.it.color)+'"><b>'+esc(s.it.title||"Turno")+'</b><span>'+esc(s.it.start||"")+'–'+esc(s.it.end||"")+'</span></button>'});
@@ -535,7 +579,7 @@ function renderDay(){
   main.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{const k=Number(b.dataset.open);const has=shown.some(o=>Number(o.it.pri||3)===k);if(!has){openTask({pri:k,date:d});return}S.focus=k;render();const q=main.querySelector(".q.focus");if(q)q.scrollIntoView({block:"start",behavior:"smooth"})});
   main.querySelectorAll("[data-back]").forEach(b=>b.onclick=e=>{e.stopPropagation();S.focus=null;render()});
   main.querySelectorAll("[data-rep]").forEach(b=>b.onclick=()=>{S.rep=b.dataset.rep;ls.set("ag2.rep",S.rep);render()});
-  main.querySelectorAll("[data-shift]").forEach(b=>b.onclick=()=>openShift({id:b.dataset.shift,date:d}));
+  main.querySelectorAll("[data-shift]").forEach(b=>b.onclick=()=>openShift({id:b.dataset.shift,date:d}));bindCalSwitch();
   document.getElementById("addShift").onclick=()=>openShift({date:d});
   document.getElementById("dp").onclick=()=>{S.date=addDays(S.date,-1);render()};
   document.getElementById("dn").onclick=()=>{S.date=addDays(S.date,1);render()};
@@ -596,6 +640,7 @@ function gcal(st,date){
 }
 
 function openTask(ctx){
+  if(ctx.occ&&ctx.occ.src==="tpl")return openTplOcc(ctx.occ);
   const o=ctx.occ,orig=o?o.it:null,date=o?(o.carry?today():o.date):ctx.date;
   const st={title:orig?orig.title:"",pri:orig?Number(orig.pri||3):ctx.pri,rep:orig?orig.rep||"":(S.rep||""),by:orig?orig.by||"":"",
     alarm:orig&&orig.alarm!=null?String(orig.alarm):"",days:orig&&o.src==="rule"?(orig.days||[]).slice():[],date:o&&o.src==="task"?o.date:date,more:false};
@@ -662,24 +707,29 @@ function openTask(ctx){
 
 function openShift(ctx){
   const orig=ctx.id?S.rules.get(ctx.id):null,date=ctx.date;
-  const st={title:orig?orig.title:"",start:orig?orig.start:"06:00",end:orig?orig.end:"14:00",color:orig?orig.color||"a":"a",days:orig&&orig.repeat?(orig.days||[]).slice():[],date:orig&&!orig.repeat?orig.date:date};
+  const st={title:orig?orig.title:"",start:orig?orig.start:"06:00",end:orig?orig.end:"14:00",color:orig?orig.color||"a":"a",days:orig&&orig.repeat?(orig.days||[]).slice():[],date:orig&&!orig.repeat?orig.date:date,tpl:orig?(orig.tpl&&S.tpl.has(orig.tpl)?orig.tpl:""):(ctx.tpl||(S.tpl.size?tplList()[0][0]:""))};
   let conf=false,first=true;
   function draw(){
+    const tp=st.tpl&&S.tpl.get(st.tpl);
     let h='<h3>'+(orig?"Modifica turno":"Nuovo turno")+'</h3>';
+    if(S.tpl.size)h+='<div class="field"><span class="lbl">Turno tipo</span>'+seg("tpl",tplList().map(([id,t])=>({k:id,n:t.name+" "+t.start+"–"+t.end})).concat([{k:"",n:"Personalizzato"}]),st.tpl,x=>x.k?shcOf(S.tpl.get(x.k).color):"var(--ink)")+'</div>';
+    if(tp)h+='<div class="tinfo" style="--sc:'+shcOf(tp.color)+'"><b>'+esc(tp.name)+' '+esc(tp.start)+'–'+esc(tp.end)+'</b><span>'+((tp.tasks||[]).length?(tp.tasks||[]).length+' attività di default compariranno nel giorno: '+esc((tp.tasks||[]).slice(0,3).map(k=>k.title).join(", "))+((tp.tasks||[]).length>3?'…':''):'Questo turno tipo non ha ancora attività di default: aggiungile in Impostazioni.')+'</span></div>';
+    else{
     h+='<input class="big" id="s-title" type="text" value="'+esc(st.title)+'" placeholder="Nome del turno (es. Mattina)" autocomplete="off">';
     h+='<div class="row2"><div class="field"><span class="lbl">Inizio</span>'+wheelHTML("s-start",st.start)+'</div><div class="field"><span class="lbl">Fine</span>'+wheelHTML("s-end",st.end)+'</div></div>';
     h+='<div class="field"><span class="lbl">Colore</span>'+seg("color",SHC.map(s=>({k:s.k,n:"●"})),st.color,s=>shcOf(s.k))+'</div>';
+    if(!S.tpl.size)h+='<p class="hint" style="margin:0">Puoi creare turni tipo (es. Apertura) con le loro attività di default in <b>Impostazioni</b>.</p>';}
     h+='<div class="field"><span class="lbl">Ripeti ogni settimana</span><div class="seg">'+WD.map((w,i)=>'<button type="button" data-day="'+(i+1)+'" aria-pressed="'+st.days.includes(i+1)+'">'+w+'</button>').join("")+'</div><span class="hint">'+(st.days.length?'Turno fisso ogni settimana.':'Nessun giorno scelto: vale solo per '+esc(longDate(st.date).toLowerCase())+'.')+'</span></div>';
     h+='<div class="err" id="err" hidden></div>';
     if(conf)h+='<div class="confirm"><span>Eliminare questo turno'+(orig.repeat?' da tutte le settimane':'')+'?</span><button type="button" class="btn sm" id="cNo">No</button><button type="button" class="btn sm danger" id="cYes">Elimina</button></div>';
     h+='<div class="actions">'+(orig?'<button type="button" class="btn ghost danger" id="del">Elimina</button>':'')+(orig&&orig.repeat?'<button type="button" class="btn ghost" id="skip">Salta solo questo giorno</button>':'')+'<span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div>';
-    mountSheet(h,shcOf(st.color));wire();
+    mountSheet(h,tp?shcOf(tp.color):shcOf(st.color));wire();
   }
-  function grab(){const g=id=>{const e=document.getElementById(id);return e?e.value:null};st.title=g("s-title");st.start=wheelVal("s-start")||st.start;st.end=wheelVal("s-end")||st.end}
+  function grab(){const g=id=>{const e=document.getElementById(id);return e?e.value:null};const v=g("s-title");if(v!=null)st.title=v;st.start=wheelVal("s-start")||st.start;st.end=wheelVal("s-end")||st.end}
   function wire(){
     const f=document.getElementById("sf");
     wireWheels(f);
-    f.querySelectorAll("[data-seg]").forEach(b=>b.onclick=()=>{grab();st.color=b.dataset.val;draw()});
+    f.querySelectorAll("[data-seg]").forEach(b=>b.onclick=()=>{grab();if(b.dataset.seg==="tpl")st.tpl=b.dataset.val;else st.color=b.dataset.val;draw()});
     f.querySelectorAll("[data-day]").forEach(b=>b.onclick=()=>{grab();const x=Number(b.dataset.day);st.days=st.days.includes(x)?st.days.filter(y=>y!==x):st.days.concat(x).sort();draw()});
     document.getElementById("cancel").onclick=closeSheet;
     const del=document.getElementById("del");if(del)del.onclick=()=>{grab();conf=true;draw()};
@@ -687,14 +737,15 @@ function openShift(ctx){
     const cy=document.getElementById("cYes");if(cy)cy.onclick=async()=>{closeSheet();await safe(col("rules").doc(ctx.id).delete(),"Turno eliminato")};
     const sk=document.getElementById("skip");if(sk)sk.onclick=async()=>{closeSheet();await safe(col("rules").doc(ctx.id).update({skip:(orig.skip||[]).filter(x=>x>=addDays(today(),-90)).concat(date)}),"Turno saltato")};
     f.addEventListener("submit",async e=>{e.preventDefault();grab();
+      const tp=st.tpl&&S.tpl.get(st.tpl);if(tp){st.title=tp.name;st.start=tp.start;st.end=tp.end;st.color=tp.color}
       const ns=normTime(st.start),ne=normTime(st.end);
       if(!ns||!ne){const er=document.getElementById("err");er.textContent="Scrivi inizio e fine, per esempio 06:00 e 14:00.";er.hidden=false;return}
       st.start=ns;st.end=ne;
-      const data={kind:"shift",title:(st.title||"").trim()||"Turno",start:st.start,end:st.end,color:st.color,repeat:st.days.length>0,days:st.days,from:st.days.length?(orig&&orig.from||date):"",date:st.days.length?"":st.date,skip:orig&&orig.skip||[]};
+      const data={kind:"shift",tpl:tp?st.tpl:"",title:(st.title||"").trim()||"Turno",start:st.start,end:st.end,color:st.color,repeat:st.days.length>0,days:st.days,from:st.days.length?(orig&&orig.from||date):"",date:st.days.length?"":st.date,skip:orig&&orig.skip||[]};
       closeSheet();
       await safe(orig?col("rules").doc(ctx.id).set(data):col("rules").add(data),"Turno salvato");
     });
-    if(first&&!orig)document.getElementById("s-title").focus();first=false;
+    const stt=document.getElementById("s-title");if(first&&!orig&&stt)stt.focus();first=false;
   }
   draw();
 }
@@ -718,34 +769,42 @@ function palSetDay(d,patch){const days=Object.assign({},S.pal.days||{}),x=Object
 function palSnapshot(){if(S.view==="pal")render()}
 
 function palChart(rows){
-  const W=640,H=150,pl=30,pr=6,pt=10,pb=22,vals=rows.map(r=>r.end).concat(rows.map(r=>r.at9));
+  const W=640,H=170,pl=30,pr=6,pt=10,pb=34,vals=rows.map(r=>r.end).concat(rows.map(r=>r.at9));
   const max=Math.max(10,...vals),min=Math.min(0,...vals),sy=v=>pt+(H-pt-pb)*(max-v)/(max-min),bw=(W-pl-pr)/21,t=today();
   const step=max-min>120?50:max-min>60?20:10;let g="";
   for(let v=Math.ceil(min/step)*step;v<=max;v+=step)g+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+sy(v)+'" y2="'+sy(v)+'" stroke="var(--line)"'+(v===0?' stroke-width="1.5"':'')+'/><text x="'+(pl-5)+'" y="'+(sy(v)+3.5)+'" font-size="10" text-anchor="end" fill="var(--muted)">'+v+'</text>';
   rows.forEach((r,i)=>{const x=pl+i*bw+bw*.16,w=bw*.68,y0=sy(0),y=sy(r.end),neg=r.end<0;
     g+='<rect x="'+x+'" y="'+Math.min(y,y0)+'" width="'+w+'" height="'+Math.max(1,Math.abs(y0-y))+'" rx="2" fill="'+(neg?'var(--p1)':r.d===t?'var(--accent)':'color-mix(in srgb,var(--accent) 45%,var(--paper))')+'"><title>'+shortDay(r.d)+': fine giornata '+r.end+'</title></rect>';
     g+='<circle cx="'+(x+w/2)+'" cy="'+sy(r.at9)+'" r="2.6" fill="'+(r.at9<0?'var(--p1)':'var(--p2)')+'"><title>'+shortDay(r.d)+': alle 9 '+r.at9+'</title></circle>';
-    if(i%7===0||r.d===t)g+='<text x="'+(x+w/2)+'" y="'+(H-7)+'" font-size="10" text-anchor="middle" fill="'+(r.d===t?'var(--ink)':'var(--muted)')+'"'+(r.d===t?' font-weight="700"':'')+'>'+shortDay(r.d)+'</text>'});
+    const lc=r.d===t?'var(--accent)':'var(--muted)',fw=r.d===t?' font-weight="800"':'';
+    g+='<text x="'+(x+w/2)+'" y="'+(H-19)+'" font-size="11" text-anchor="middle" fill="'+(r.d===t?'var(--accent)':'var(--ink)')+'"'+fw+'>'+parse(r.d).getDate()+'</text><text x="'+(x+w/2)+'" y="'+(H-6)+'" font-size="9" text-anchor="middle" fill="'+lc+'"'+fw+'>'+WD[wd(r.d)-1]+'</text>'});
   return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Pallet a fine giornata nei 21 giorni">'+g+'</svg>';
 }
 
+/* produttività: media pallet lavorati per turno (solo i turni in cui si è lavorato) */
+function palProd(rows,k){const l=rows.filter(r=>r[k]>0),tot=l.reduce((s,r)=>s+r[k],0);return {n:l.length,tot,avg:l.length?tot/l.length:0,best:l.reduce((m,r)=>Math.max(m,r[k]),0)}}
+function palKpi(rows){
+  const t=today(),first=rows[0].d,now=rows.find(r=>r.d===t),pn=palProd(rows,"n"),pm=palProd(rows,"m"),neg=rows.filter(r=>r.at9<0||r.end<0).length;
+  const f=x=>(Math.round(x*10)/10).toLocaleString("it-IT");
+  return '<div class="ukpi"><div class="k" style="--kc:var(--accent)"><b>'+f(pn.avg)+'<small> pallet/notte</small></b><span>Produttività notturno · '+pn.tot+' in '+pn.n+(pn.n===1?' notte':' notti')+(pn.best?' · max '+pn.best:'')+'</span></div>'+
+    '<div class="k" style="--kc:var(--p2)"><b>'+f(pm.avg)+'<small> pallet/turno</small></b><span>Produttività alle 6 · '+pm.tot+' in '+pm.n+(pm.n===1?' turno':' turni')+(pm.best?' · max '+pm.best:'')+'</span></div>'+
+    '<div class="k"><b>'+(now?now.end:(t<first?num(S.pal.initial):rows[20].end))+'</b><span>'+(now?'Pallet oggi a fine giornata':t<first?'Pallet di partenza':'Pallet a fine piano')+'</span></div>'+
+    '<div class="k" style="--kc:'+(neg?'var(--p1)':'var(--ok)')+'"><b>'+rows[20].end+'</b><span>'+(neg?'Fine piano · '+neg+(neg===1?' giorno':' giorni')+' sotto zero':'Pallet a fine piano · '+esc(shortDay(rows[20].d)))+'</span></div></div>';
+}
 function renderPal(){
   const p=S.pal,rows=palRows(),t=today(),first=rows[0].d,last=rows[20].d;
   const tot=k=>rows.reduce((s,r)=>s+r[k],0),now=rows.find(r=>r.d===t),neg=rows.filter(r=>r.at9<0||r.end<0);
-  let h='<div class="utop"><div><h2 class="mname">Pallet</h2><div class="hint">Piano 3 settimane · '+esc(shortDate(first))+' – '+esc(shortDate(last))+(p.start?'':' (imposta la data di inizio)')+'</div></div><button class="btn sm" id="pCfg">⚙ Piano</button></div>';
+  let h='<div class="utop"><div><h2 class="mname">Pallet</h2><div class="hint">Piano 3 settimane · '+esc(shortDate(first))+' – '+esc(shortDate(last))+(p.start?'':' · tocca ⚙ Piano per la data di inizio')+'</div></div><button class="btn sm" id="pCfg">⚙ Piano</button></div>';
   if(p.note)h+='<div class="pnote">📌 '+esc(p.note)+'</div>';
-  h+='<div class="ukpi"><div class="k"><b>'+(now?now.end:(t<first?num(p.initial):rows[20].end))+'</b><span>'+(now?'pallet oggi a fine giornata':t<first?'pallet di partenza':'pallet a fine piano')+'</span></div>'+
-    '<div class="k" style="--kc:var(--p2)"><b>'+(tot("n")+tot("m"))+'</b><span>lavorati ('+tot("n")+' notte · '+tot("m")+' mattina)</span></div>'+
-    '<div class="k" style="--kc:var(--ok)"><b>'+tot("r")+'</b><span>ricevuti in 3 settimane</span></div>'+
-    '<div class="k" style="--kc:'+(neg.length?'var(--p1)':'var(--accent)')+'"><b>'+rows[20].end+'</b><span>'+(neg.length?neg.length+' giorni sotto zero':'fine piano · '+esc(shortDay(last)))+'</span></div></div>';
-  h+='<div class="pchart"><div class="hint"><span class="lg" style="--c:color-mix(in srgb,var(--accent) 45%,var(--paper))"></span>fine giornata · <span class="lg dot" style="--c:var(--p2)"></span>alle 9</div>'+palChart(rows)+'</div>';
-  h+='<div class="ptable"><div class="prow phead"><span>Giorno</span><span class="dsk">Iniziali</span><span>Notte</span><span>Mattina 6:00</span><span>Alle 9</span><span>Ricevuti</span><span>Fine</span></div>';
+  h+=palKpi(rows);
+  h+='<div class="pchart"><div class="hint"><span class="lg" style="--c:color-mix(in srgb,var(--accent) 45%,var(--paper))"></span>Pallet a fine giornata · <span class="lg dot" style="--c:var(--p2)"></span>Pallet alle 9</div><div class="pscroll">'+palChart(rows)+'</div></div>';
+  h+='<div class="ptable"><div class="prow phead"><span>Giorno</span><span class="dsk">Pallet iniziali</span><span class="ph-in">Lavorati notturno</span><span class="ph-in">Lavorati alle 6</span><span>Pallet alle 9</span><span class="ph-in">Pallet ricevuti</span><span>Pallet a fine giornata</span></div>';
   rows.forEach(r=>{
     if(r.i%7===0)h+='<div class="pweek">Settimana '+(r.i/7+1)+' · '+esc(shortDate(r.d))+' – '+esc(shortDate(addDays(r.d,6)))+'</div>';
     const inp=(k,lab)=>'<input class="pin" type="number" inputmode="numeric" min="0" enterkeyhint="next" id="pi-'+k+'-'+r.d+'" data-d="'+r.d+'" data-k="'+k+'" value="'+(has(r.x[k])?esc(r.x[k]):'')+'" placeholder="0" aria-label="'+lab+' '+esc(shortDay(r.d))+'">';
     h+='<div class="prow'+(r.d===t?' today':'')+(r.d<t?' past':'')+'" data-row="'+r.d+'"><button class="pday" data-day="'+r.d+'"><b>'+esc(WD[wd(r.d)-1])+'</b> '+parse(r.d).getDate()+(r.x.note?' <i>✎</i>':'')+'</button>'+
-      '<span class="pv dsk" data-o="ini">'+r.ini+'</span>'+inp("n","Lavorati notte")+inp("m","Lavorati mattina")+
-      '<span class="pv'+(r.at9<0?' neg':'')+'" data-o="at9">'+r.at9+'</span>'+inp("r","Ricevuti")+'<span class="pv end'+(r.end<0?' neg':'')+'" data-o="end">'+r.end+'</span></div>';
+      '<span class="pv dsk" data-o="ini">'+r.ini+'</span>'+inp("n","Lavorati notturno")+inp("m","Lavorati alle 6")+
+      '<span class="pv'+(r.at9<0?' neg':'')+'" data-o="at9">'+r.at9+'</span>'+inp("r","Pallet ricevuti")+'<span class="pv end'+(r.end<0?' neg':'')+'" data-o="end">'+r.end+'</span></div>';
     if(r.x.note)h+='<div class="pnrow">'+esc(r.x.note)+'</div>';
   });
   h+='<div class="prow ptot"><span>Totali</span><span class="dsk"></span><span class="pv" data-t="n">'+tot("n")+'</span><span class="pv" data-t="m">'+tot("m")+'</span><span></span><span class="pv" data-t="r">'+tot("r")+'</span><span class="pv end" data-t="end">'+rows[20].end+'</span></div></div>';
@@ -775,6 +834,7 @@ function palRefresh(){const rows=palRows();
   const tot=k=>rows.reduce((s,r)=>s+r[k],0);
   [["n",tot("n")],["m",tot("m")],["r",tot("r")],["end",rows[20].end]].forEach(([k,v])=>{const e=main.querySelector('[data-t="'+k+'"]');if(e)e.textContent=v});
   const c=main.querySelector(".pchart svg");if(c)c.outerHTML=palChart(rows);
+  const k=main.querySelector(".ukpi");if(k)k.outerHTML=palKpi(rows);
 }
 
 function openPalCfg(){
@@ -796,8 +856,8 @@ function openPalDay(d){
   const rows=palRows(),r=rows.find(x=>x.d===d);if(!r)return;const x=Object.assign({},r.x);
   const F=(k,l)=>'<label class="fl"><span>'+l+'</span><input class="inp" type="number" inputmode="numeric" min="0" id="pd-'+k+'" value="'+(has(x[k])?esc(x[k]):'')+'" placeholder="0"></label>';
   const prev=()=>{const n=num(document.getElementById("pd-n").value),m=num(document.getElementById("pd-m").value),rc=num(document.getElementById("pd-r").value),a=r.ini-n-m;
-    return '<div class="uprev" style="--rc:var(--accent)"><span>Pallet iniziali</span><b>'+r.ini+'</b><span>Pallet alle 9</span><b'+(a<0?' class="neg"':'')+'>'+a+'</b><span class="big">Fine giornata</span><b class="big'+(a+rc<0?' neg':'')+'">'+(a+rc)+'</b></div>'};
-  let h='<h3>'+esc(longDate(d))+'</h3><div class="grid3">'+F("n","Lavorati notte")+F("m","Lavorati 6:00")+F("r","Ricevuti")+'</div><div id="pd-prev"></div>';
+    return '<div class="uprev" style="--rc:var(--accent)"><span>Pallet iniziali</span><b>'+r.ini+'</b><span>Pallet alle 9</span><b'+(a<0?' class="neg"':'')+'>'+a+'</b><span class="big">Pallet a fine giornata</span><b class="big'+(a+rc<0?' neg':'')+'">'+(a+rc)+'</b></div>'};
+  let h='<h3>'+esc(longDate(d))+'</h3><div class="grid3">'+F("n","Lavorati notturno")+F("m","Lavorati alle 6")+F("r","Pallet ricevuti")+'</div><div id="pd-prev"></div>';
   h+='<div class="field"><label class="lbl" for="pd-note">Nota del giorno</label><input class="inp" type="text" id="pd-note" value="'+esc(x.note||"")+'" placeholder="Es. valutare notturno"></div>';
   h+='<div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div>';
   mountSheet(h,"var(--accent)");
@@ -835,6 +895,145 @@ async function palImport(file){
   document.getElementById("cancel").onclick=closeSheet;
   document.getElementById("sf").addEventListener("submit",async e=>{e.preventDefault();closeSheet();
     if(await palSave(Object.assign({},PAL0,res)))toast("Piano importato");render("force")});
+}
+
+/* ---------- TURNI TIPO (attività di default per turno) ---------- */
+const uid36=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function resolveShift(r){const t=r.tpl&&S.tpl.get(r.tpl);return t?Object.assign({},r,{title:t.name,start:t.start,end:t.end,color:t.color}):r}
+const tplList=()=>[...S.tpl.entries()].sort((a,b)=>(a[1].start||"").localeCompare(b[1].start||"")||String(a[1].name).localeCompare(String(b[1].name)));
+const PRESETS=[{name:"Apertura",start:"06:00",end:"14:00",color:"a"},{name:"Centrale",start:"10:00",end:"18:00",color:"b"},{name:"Chiusura",start:"14:00",end:"22:00",color:"c"}];
+
+function openTplOcc(o){
+  const it=o.it,p=priOf(it.pri);
+  let h='<h3>Attività del turno · '+esc(o.tplName)+'</h3><div class="big" style="border:0;padding:0">'+esc(it.title)+'</div>';
+  h+='<div class="meta" style="font-size:13px">'+'<span class="pchip" style="color:'+p.c+';font-weight:800">'+esc(p.n)+'</span>'+(it.rep?'<span class="rep">'+esc(it.rep)+'</span>':'')+(it.by?'<span class="by">entro le '+esc(it.by)+(it.alarm!==""&&it.alarm!=null?' ⏰':'')+'</span>':'')+'</div>';
+  h+='<p class="hint" style="margin:0">Compare ogni volta che fai il turno «'+esc(o.tplName)+'». Per cambiarla per sempre modificala nel turno tipo.</p>';
+  h+='<div class="actions"><button type="button" class="btn ghost" id="oSkip">Salta solo oggi</button><span class="sp"></span><button type="button" class="btn" id="oEdit">Modifica nel turno tipo</button><button type="button" class="btn primary" id="cancel">'+(o.done?'Chiudi':'Chiudi')+'</button></div>';
+  mountSheet(h,p.c);
+  document.getElementById("cancel").onclick=closeSheet;
+  document.getElementById("oSkip").onclick=async()=>{closeSheet();await safe(col("done").doc(o.key).set({rule:o.id,date:o.date,skip:true,at:Date.now()}),"Saltata per oggi")};
+  document.getElementById("oEdit").onclick=()=>{closeSheet();S.tplId=o.tplId;setView("tpl")};
+}
+
+function renderSet(){
+  const tp=tplList();
+  let h='<div class="utop"><div><h2 class="mname">Impostazioni</h2><div class="hint">Turni tipo, attività di default e account</div></div></div>';
+  h+='<section class="sset"><div class="shead"><h3>Turni tipo</h3><button class="btn primary sm" id="tNew">+ Turno tipo</button></div>';
+  h+='<p class="hint sp0">Ogni turno tipo ha le sue attività di default: quando lo metti in un giorno del calendario, le attività compaiono da sole in quel giorno.</p>';
+  if(!tp.length)h+='<div class="tpre"><span class="hint">Inizia da uno di questi:</span>'+PRESETS.map((p,i)=>'<button class="btn sm" data-pre="'+i+'">+ '+p.name+' '+p.start+'–'+p.end+'</button>').join("")+'</div>';
+  h+='<ul class="tlist">'+tp.map(([id,t])=>'<li><button class="titem" data-tpl="'+esc(id)+'" style="--sc:'+shcOf(t.color)+'"><span class="tdot"></span><span class="tn"><b>'+esc(t.name)+'</b><span>'+esc(t.start)+'–'+esc(t.end)+'</span></span><span class="tc">'+(t.tasks||[]).length+((t.tasks||[]).length===1?' attività':' attività')+' ›</span></button></li>').join("")+'</ul></section>';
+  h+='<section class="sset"><div class="shead"><h3>Account</h3></div><p class="sp0">'+(S.email?'Accesso con <b>'+esc(S.email)+'</b>':'Accesso effettuato')+'</p><p class="hint sp0">Gli stessi dati sono sul telefono e sul computer.</p><div class="pact" style="padding:8px 0 0;border:0"><button class="btn danger" id="sOut">Esci dall\'account</button></div></section>';
+  main.innerHTML=h;
+  document.getElementById("tNew").onclick=()=>openTplEdit(null);
+  main.querySelectorAll("[data-pre]").forEach(b=>b.onclick=async()=>{const p=PRESETS[Number(b.dataset.pre)];const r=await safe(col("shtpl").add(Object.assign({tasks:[]},p)),"Turno tipo «"+p.name+"» creato")});
+  main.querySelectorAll("[data-tpl]").forEach(b=>b.onclick=()=>{S.tplId=b.dataset.tpl;setView("tpl")});
+  document.getElementById("sOut").onclick=logout;
+}
+
+function renderTpl(){
+  const t=S.tpl.get(S.tplId);if(!t){setView("set");return}
+  const tasks=(t.tasks||[]).slice().sort((a,b)=>(Number(a.pri||3)-Number(b.pri||3))||((a.by||"99").localeCompare(b.by||"99")));
+  let h='<div class="utop"><div><button class="linkbtn" id="tBack">‹ Impostazioni</button><h2 class="mname" style="--sc:'+shcOf(t.color)+'"><span class="tdot big"></span>'+esc(t.name)+'</h2><div class="hint">Turno '+esc(t.start)+'–'+esc(t.end)+' · '+tasks.length+' attività di default</div></div><button class="btn sm" id="tEdit">Modifica turno</button></div>';
+  h+='<div class="ubar"><b>Attività di default</b><span class="sp"></span><button class="btn sm" id="tUse">Metti nel calendario</button><button class="btn primary sm" id="tAdd">+ Attività</button></div>';
+  if(!tasks.length)h+='<div class="hello">Nessuna attività. Aggiungi quelle da fare ogni volta che fai il turno «'+esc(t.name)+'», per esempio "Controllo cassa iniziale entro le 09:30".</div>';
+  else h+='<ul class="list tl2">'+tasks.map(k=>{const p=priOf(k.pri);return '<li class="item" style="--qc:'+p.c+';border-left:4px solid '+p.c+'"><div class="body" data-tt="'+esc(k.id)+'"><div class="t">'+esc(k.title)+'</div><div class="meta"><span style="color:'+p.c+';font-weight:800">'+esc(p.n)+'</span>'+(k.rep?'<span class="rep">'+esc(k.rep)+'</span>':'')+(k.by?'<span class="by">entro le '+esc(k.by)+(k.alarm!==""&&k.alarm!=null?' ⏰':'')+'</span>':'')+'</div></div></li>'}).join("")+'</ul>';
+  main.innerHTML=h;
+  document.getElementById("tBack").onclick=()=>setView("set");
+  document.getElementById("tEdit").onclick=()=>openTplEdit(S.tplId);
+  document.getElementById("tAdd").onclick=()=>openTplTask(S.tplId,null);
+  document.getElementById("tUse").onclick=()=>openShift({date:today(),tpl:S.tplId});
+  main.querySelectorAll("[data-tt]").forEach(b=>b.onclick=()=>openTplTask(S.tplId,b.dataset.tt));
+}
+
+function openTplEdit(id){
+  const orig=id?S.tpl.get(id):null;
+  const st={name:orig?orig.name:"",start:orig?orig.start:"06:00",end:orig?orig.end:"14:00",color:orig?orig.color||"a":"a"};
+  let conf=false,first=true;
+  function draw(){
+    let h='<h3>'+(orig?"Modifica turno tipo":"Nuovo turno tipo")+'</h3>';
+    h+='<input class="big" id="tt-name" type="text" value="'+esc(st.name)+'" placeholder="Nome (es. Apertura)" autocomplete="off">';
+    h+='<div class="row2"><div class="field"><span class="lbl">Inizio</span>'+wheelHTML("tt-start",st.start)+'</div><div class="field"><span class="lbl">Fine</span>'+wheelHTML("tt-end",st.end)+'</div></div>';
+    h+='<div class="field"><span class="lbl">Colore</span>'+seg("color",SHC.map(s=>({k:s.k,n:"●"})),st.color,s=>shcOf(s.k))+'</div>';
+    h+='<div class="err" id="err" hidden></div>';
+    if(conf)h+='<div class="confirm"><span>Eliminare il turno tipo e le sue attività di default? I turni già messi nel calendario restano, senza attività.</span><button type="button" class="btn sm" id="cNo">No</button><button type="button" class="btn sm danger" id="cYes">Elimina</button></div>';
+    h+='<div class="actions">'+(orig?'<button type="button" class="btn ghost danger" id="del">Elimina</button>':'')+'<span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div>';
+    mountSheet(h,shcOf(st.color));
+    const f=document.getElementById("sf");wireWheels(f);
+    const grab=()=>{st.name=document.getElementById("tt-name").value;st.start=wheelVal("tt-start")||st.start;st.end=wheelVal("tt-end")||st.end};
+    f.querySelectorAll("[data-seg]").forEach(b=>b.onclick=()=>{grab();st.color=b.dataset.val;draw()});
+    document.getElementById("cancel").onclick=closeSheet;
+    const del=document.getElementById("del");if(del)del.onclick=()=>{grab();conf=true;draw()};
+    const cn=document.getElementById("cNo");if(cn)cn.onclick=()=>{conf=false;draw()};
+    const cy=document.getElementById("cYes");if(cy)cy.onclick=async()=>{closeSheet();await safe(col("shtpl").doc(id).delete(),"Turno tipo eliminato");setView("set")};
+    f.addEventListener("submit",async e=>{e.preventDefault();grab();
+      if(!st.name.trim()){const er=document.getElementById("err");er.textContent="Scrivi il nome del turno.";er.hidden=false;return}
+      const data={name:st.name.trim(),start:st.start,end:st.end,color:st.color,tasks:orig?orig.tasks||[]:[]};
+      closeSheet();
+      if(orig)await safe(col("shtpl").doc(id).set(data),"Turno tipo salvato");
+      else{const r=col("shtpl").doc();if(await safe(r.set(data),"Turno tipo creato")){S.tplId=r.id;setView("tpl")}}
+    });
+    if(first&&!orig)document.getElementById("tt-name").focus();first=false;
+  }
+  draw();
+}
+
+function openTplTask(tid,kid){
+  const t=S.tpl.get(tid);if(!t)return;
+  const orig=kid?(t.tasks||[]).find(k=>k.id===kid):null;
+  const st={title:orig?orig.title:"",pri:orig?Number(orig.pri||2):2,rep:orig?orig.rep||"":"",by:orig?orig.by||"":"",alarm:orig&&orig.alarm!=null?String(orig.alarm):""};
+  let conf=false,first=true;
+  function draw(){
+    const p=priOf(st.pri);
+    let h='<h3>'+(orig?"Modifica":"Nuova")+' attività · '+esc(t.name)+'</h3>';
+    h+='<input class="big" id="k-title" type="text" value="'+esc(st.title)+'" placeholder="Cosa c\'è da fare in questo turno?" autocomplete="off">';
+    h+='<div class="field"><span class="lbl">Urgenza</span>'+seg("pri",PRI.map(x=>({k:x.k,n:x.n})),st.pri,x=>priOf(x.k).c,()=>"var(--paper)")+'</div>';
+    h+='<div class="field"><span class="lbl">Reparto</span>'+seg("rep",[{k:"",n:"—"}].concat(REP.map(r=>({k:r,n:r}))),st.rep)+'</div>';
+    if(st.by){h+='<div class="field"><div class="tline"><span class="lbl">Entro le</span><button type="button" id="k-noby">Togli orario</button></div>'+wheelHTML("k-by",st.by)+'</div>';
+      h+='<div class="field"><label class="lbl" for="k-alarm">Sveglia</label><select class="inp" id="k-alarm">'+ALARMS.map(a=>'<option value="'+a.v+'"'+(a.v===st.alarm?' selected':'')+'>'+a.n+'</option>').join("")+'</select></div>'}
+    else h+='<div class="field"><span class="lbl">Entro le</span><button type="button" class="tbtn" id="k-addby">+ Aggiungi orario e sveglia</button></div>';
+    h+='<div class="err" id="err" hidden></div>';
+    if(conf)h+='<div class="confirm"><span>Togliere questa attività dal turno «'+esc(t.name)+'»?</span><button type="button" class="btn sm" id="cNo">No</button><button type="button" class="btn sm danger" id="cYes">Togli</button></div>';
+    h+='<div class="actions">'+(orig?'<button type="button" class="btn ghost danger" id="del">Togli dal turno</button>':'')+'<span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div>';
+    mountSheet(h,p.c);
+    const f=document.getElementById("sf");wireWheels(f);
+    const grab=()=>{st.title=document.getElementById("k-title").value;const w=wheelVal("k-by");if(w)st.by=w;const a=document.getElementById("k-alarm");if(a)st.alarm=a.value};
+    f.querySelectorAll("[data-seg]").forEach(b=>b.onclick=()=>{grab();if(b.dataset.seg==="pri")st.pri=Number(b.dataset.val);else st.rep=b.dataset.val;draw()});
+    const ab=document.getElementById("k-addby");if(ab)ab.onclick=()=>{grab();st.by=(t.start||"09:00");draw()};
+    const nb=document.getElementById("k-noby");if(nb)nb.onclick=()=>{grab();st.by="";st.alarm="";draw()};
+    document.getElementById("cancel").onclick=closeSheet;
+    const save=async list=>safe(col("shtpl").doc(tid).set(Object.assign({},t,{tasks:list})));
+    const del=document.getElementById("del");if(del)del.onclick=()=>{grab();conf=true;draw()};
+    const cn=document.getElementById("cNo");if(cn)cn.onclick=()=>{conf=false;draw()};
+    const cy=document.getElementById("cYes");if(cy)cy.onclick=async()=>{closeSheet();await save((t.tasks||[]).filter(k=>k.id!==kid));toast("Attività tolta")};
+    f.addEventListener("submit",async e=>{e.preventDefault();grab();
+      if(!st.title.trim()){const er=document.getElementById("err");er.textContent="Scrivi cosa c'è da fare.";er.hidden=false;return}
+      const item={id:orig?orig.id:uid36(),title:st.title.trim(),pri:st.pri,rep:st.rep,by:st.by||"",alarm:st.by?st.alarm:""};
+      const list=(t.tasks||[]).filter(k=>k.id!==item.id).concat(item);
+      closeSheet();if(await save(list))toast(orig?"Attività salvata":"Attività aggiunta al turno");
+    });
+    if(first&&!orig)document.getElementById("k-title").focus();first=false;
+  }
+  draw();
+}
+
+/* ---------- HOME ---------- */
+function renderHome(){
+  const t=today(),hr=new Date().getHours(),occ=tasksOn(t,true),open=occ.filter(o=>!o.done).sort((a,b)=>(Number(a.it.pri||3)-Number(b.it.pri||3))||((a.it.by||"99").localeCompare(b.it.by||"99")));
+  const urg=open.filter(o=>Number(o.it.pri)===1).length,sh=shiftsOn(t),done=occ.length-open.length;
+  const rows=palRows(),now=rows.find(r=>r.d===t),pn=palProd(rows,"n"),pm=palProd(rows,"m"),f=x=>(Math.round(x*10)/10).toLocaleString("it-IT");
+  let h='<div class="home"><div class="hhead"><div class="rel">'+(hr<13?'Buongiorno':hr<18?'Buon pomeriggio':'Buonasera')+'</div><h2>'+esc(longDate(t))+'</h2></div><div class="hgrid">';
+  h+='<button class="hcard" data-go="day"><span class="hic" style="--hc:var(--accent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></span><span class="hti">Calendario</span>'+
+    '<span class="hsh">'+(sh.length?sh.map(s=>'<i style="--sc:'+shcOf(s.it.color)+'">'+esc(s.it.title||"Turno")+' '+esc(s.it.start||"")+'–'+esc(s.it.end||"")+'</i>').join(""):'<i class="none">Nessun turno oggi</i>')+'</span>'+
+    '<span class="hnum"><b>'+open.length+'</b> da fare'+(urg?' · <b class="u">'+urg+'</b> urgenti':'')+' · '+done+' fatte</span>'+
+    (open.length?'<span class="hlist">'+open.slice(0,3).map(o=>'<span style="--pc:'+priOf(o.it.pri).c+'">'+esc(o.it.title)+(o.it.by?' <em>'+esc(o.it.by)+'</em>':'')+'</span>').join("")+(open.length>3?'<span class="more">+ altre '+(open.length-3)+'</span>':'')+'</span>':'<span class="hlist"><span class="none">Tutto fatto per oggi ✓</span></span>')+
+    '<span class="hgo">Apri il calendario ›</span></button>';
+  h+='<button class="hcard" data-go="pal"><span class="hic" style="--hc:var(--p2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="9" rx="1"/><path d="M2 18h20M5 18v3M12 18v3M19 18v3M4 14v4M20 14v4M12 5v9"/></svg></span><span class="hti">Strumento pallet</span>'+
+    (now?'<span class="hnum">Oggi: <b>'+now.at9+'</b> alle 9 · <b>'+now.end+'</b> a fine giornata</span>':'<span class="hnum">Piano '+esc(shortDate(rows[0].d))+' – '+esc(shortDate(rows[20].d))+'</span>')+
+    '<span class="hlist"><span style="--pc:var(--accent)">Notturno: '+f(pn.avg)+' pallet/notte</span><span style="--pc:var(--p2)">Alle 6: '+f(pm.avg)+' pallet/turno</span></span><span class="hgo">Apri lo strumento pallet ›</span></button>';
+  h+='<button class="hcard" data-go="set"><span class="hic" style="--hc:var(--muted)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span><span class="hti">Impostazioni</span><span class="hnum">'+S.tpl.size+(S.tpl.size===1?' turno tipo':' turni tipo')+'</span><span class="hlist"><span class="none">Turni con attività di default, account</span></span><span class="hgo">Apri ›</span></button>';
+  h+='</div></div>';
+  main.innerHTML=h;
+  main.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{const g=b.dataset.go;if(g==="day"){S.date=today();S.focus=null}setView(g)});
 }
 
 /* ---------- avvisi e sveglie ---------- */
