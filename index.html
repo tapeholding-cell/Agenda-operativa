@@ -587,9 +587,9 @@ function renderDay(){
 }
 
 /* ---------- ruota orario ---------- */
-const WH=36,HOURS=[...Array(24).keys()].map(pad),MINS=[...Array(12).keys()].map(i=>pad(i*5));
+const WH=36,HOURS=[...Array(24).keys()].map(pad),MINS=[...Array(60).keys()].map(pad);
 function wheelHTML(id,val){
-  const [h,m]=(val||"09:00").split(":");const mm=pad(Math.round(Number(m)/5)*5%60);
+  const [h,m]=(val||"09:00").split(":");const mm=pad(Math.min(59,Math.max(0,Number(m)||0)));
   const col=(part,arr,cur)=>'<div class="wcol" data-part="'+part+'" data-cur="'+cur+'">'+arr.map(v=>'<div class="wi" data-v="'+v+'">'+v+'</div>').join("")+'</div>';
   return '<div class="wheel" id="'+id+'"><div class="wband"></div>'+col("h",HOURS,h)+'<span class="wsep">:</span>'+col("m",MINS,mm)+'</div>';
 }
