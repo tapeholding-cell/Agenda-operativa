@@ -6,6 +6,7 @@ import { initializeFirestore, persistentLocalCache, persistentSingleTabManager, 
   onSnapshot, setDoc, updateDoc, deleteDoc, addDoc } from "firebase/firestore";
 import { Capacitor, registerPlugin } from "@capacitor/core";
 import { LocalNotifications } from "@capacitor/local-notifications";
+import { parseUpt } from "./upt-parse.js";
 
 const native = Capacitor.isNativePlatform();
 const cfg = window.FIREBASE_CONFIG;
@@ -79,7 +80,7 @@ window.AG = {
   register: (e, p) => createUserWithEmailAndPassword(auth, e, p),
   reset: e => sendPasswordResetEmail(auth, e),
   logout: () => signOut(auth),
-  base, initNotifs, scheduleNotifs,
+  base, initNotifs, scheduleNotifs, parseUpt,
   setClockAlarm: opts => native ? AlarmClock.set(opts) : Promise.reject({ code: "web" }),
   onNotifTap: cb => { if (native) LocalNotifications.addListener("localNotificationActionPerformed", a => cb(a.notification && a.notification.extra)); }
 };

@@ -181,7 +181,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 }
 .bnav{display:none}
 @media (max-width:640px){
-  .bnav{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:end;position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--paper);border-top:1px solid var(--line);
+  .bnav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:end;position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--paper);border-top:1px solid var(--line);
     padding:4px env(safe-area-inset-right,0px) calc(4px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px)}
   .bnav button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:10px;font-weight:700;color:var(--muted);padding:2px 0}
   .bnav button svg{width:18px;height:18px}
@@ -246,13 +246,47 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .alarminfo{display:flex;gap:8px;align-items:flex-start;background:color-mix(in srgb,var(--p1) 8%,var(--paper));border:1px solid color-mix(in srgb,var(--p1) 30%,transparent);border-radius:10px;padding:10px 12px;font-size:13px}
 html,body{-webkit-tap-highlight-color:transparent}
 body{padding-top:env(safe-area-inset-top,0px)}
+/* RIORDINO */
+.utop{display:flex;align-items:flex-end;gap:10px;padding:16px 16px 10px;flex-wrap:wrap}.utop>div{flex:1;min-width:0}
+.ukpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:0 16px 12px}
+.ukpi .k{border:1px solid var(--line);border-top:4px solid var(--kc,var(--accent));border-radius:10px;padding:8px 10px;background:var(--paper);min-width:0}
+.ukpi b{display:block;font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--kc,var(--ink));line-height:1.1}
+.ukpi span{font-size:11.5px;color:var(--muted);font-weight:600}
+.ucross{display:flex;gap:6px;overflow-x:auto;padding:0 16px 12px;scrollbar-width:thin}
+.uc{flex:none;border:1px solid var(--line);border-left:4px solid var(--rc);border-radius:8px;background:var(--paper);padding:6px 12px;text-align:left;display:grid;gap:1px}
+.uc b{font-size:14px}.uc span{font-size:11px;color:var(--muted);font-weight:600}
+.uc.on{background:var(--ink);color:var(--paper);border-color:var(--ink);border-left-color:var(--rc)}.uc.on span{color:color-mix(in srgb,var(--paper) 72%,transparent)}
+.ubar{display:flex;align-items:center;gap:8px;padding:10px 16px;border-top:1px solid var(--line);flex-wrap:wrap}.ubar b{font-size:16px}
+.uhead{display:grid;grid-template-columns:1fr 76px 56px;gap:10px;padding:4px 16px 4px 20px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.uhead span:not(:first-child){text-align:center}
+.ulist{list-style:none;margin:0;padding:0}
+.up{display:grid;grid-template-columns:1fr 76px 56px;gap:10px;align-items:center;padding:10px 16px;border-top:1px solid var(--line);border-left:4px solid var(--rc)}
+.ubody{min-width:0;cursor:pointer}.ut{font-weight:700;overflow-wrap:anywhere}
+.rk{font-weight:800;color:var(--rc)}
+.ustock{width:100%;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--sunk);padding:9px 4px;font-size:17px;font-weight:700;text-align:center;font-variant-numeric:tabular-nums}
+.ustock::-webkit-outer-spin-button,.ustock::-webkit-inner-spin-button,.inp[type=number]::-webkit-inner-spin-button,.inp[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.ustock,.inp[type=number]{-moz-appearance:textfield;appearance:textfield}
+.ustock:focus{outline:2px solid var(--accent);background:var(--paper)}
+.uord{text-align:center}.uord b{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
+.uspace{padding:12px 16px;border-top:1px solid var(--line);display:grid;gap:8px}
+.row3,.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:end}
+.row3 label,.grid3 label,.fl{display:grid;gap:4px;font-size:12px;color:var(--muted);font-weight:600;min-width:0}
+.fl span{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.inc b{display:block;font-size:20px;font-variant-numeric:tabular-nums}.inc span{font-size:12px;color:var(--muted)}
+.uimp{padding:10px 16px 16px;border-top:1px solid var(--line);font-size:13.5px}
+.linkbtn{border:0;background:none;color:var(--accent);font-weight:700;padding:0;font-size:inherit;text-decoration:underline}
+.uprev{display:grid;grid-template-columns:1fr auto;gap:4px 12px;background:var(--sunk);border:1px solid var(--line);border-left:4px solid var(--rc);border-radius:10px;padding:10px 12px;font-size:13px}
+.uprev b{font-variant-numeric:tabular-nums;text-align:right}.uprev .big{font-size:16px;font-weight:800;color:var(--ink)}.uprev b.big{font-size:22px}
+textarea.inp{font-family:var(--f-mono);font-size:13px;resize:vertical}
+@media (max-width:640px){.ukpi{grid-template-columns:repeat(2,minmax(0,1fr));padding:0 10px 10px}.ucross,.ubar,.utop,.uspace,.uimp{padding-left:10px;padding-right:10px}.up{padding:10px;grid-template-columns:1fr 70px 46px;gap:8px}.uhead{grid-template-columns:1fr 70px 46px;gap:8px;padding-left:14px;padding-right:10px}.grid4 .fl span{font-size:10px}}
 </style>
 </head>
 <body>
 
 <div class="wrap">
   <div class="top">
-    <nav class="tabs" aria-label="Viste"><button data-v="month">Mese</button><button id="goToday" data-today>Giorno</button></nav>
+    <nav class="tabs" aria-label="Viste"><button data-v="month">Mese</button><button id="goToday" data-today>Giorno</button><button data-v="upt">Riordino</button></nav>
     <span class="sp"></span>
   </div>
   <main id="main" class="paper"><p class="loading">Caricamento del calendario…</p></main>
@@ -261,6 +295,7 @@ body{padding-top:env(safe-area-inset-top,0px)}
   <button data-v="month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M9 9v12M15 9v12M3 15h18"/></svg>Mese</button>
   <button class="plus" id="bAdd" aria-label="Nuova attività"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5v14M5 12h14"/></svg></span></button>
   <button id="bToday" data-today><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><rect x="7" y="12" width="4" height="4" rx="1"/></svg>Giorno</button>
+  <button data-v="upt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-5 9 5v8l-9 5-9-5z"/><path d="M3 9l9 5 9-5M12 14v8"/></svg>Riordino</button>
 </nav>
 <div id="modalRoot"></div><div id="toastRoot"></div><div id="alarmRoot"></div>
 
@@ -293,7 +328,7 @@ const nowHM=()=>{const d=new Date();return pad(d.getHours())+":"+pad(d.getMinute
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 
-const S={focus:null,view:ls.get("ag2.view")==="month"?"month":"day",date:today(),month:today().slice(0,8)+"01",rep:ls.get("ag2.rep")||"",
+const S={focus:null,view:["month","upt"].includes(ls.get("ag2.view"))?ls.get("ag2.view"):"day",date:today(),month:today().slice(0,8)+"01",rep:ls.get("ag2.rep")||"",
   rules:new Map(),tasksOpen:new Map(),tasksRecent:new Map(),tasks:new Map(),done:new Map(),
   ready:{rules:false,open:false,recent:false,done:false},base:null,noData:false};
 const main=document.getElementById("main");
@@ -367,6 +402,8 @@ function startData(uid){
   unsubs.push(col("tasks").where("open","==",true).limit(1000).onSnapshot(s=>{S.tasksOpen=new Map(s.docs.map(d=>[d.id,d.data()]));merge();S.ready.open=true;render()},fail));
   unsubs.push(col("tasks").where("date",">=",cut).limit(1000).onSnapshot(s=>{S.tasksRecent=new Map(s.docs.map(d=>[d.id,d.data()]));merge();S.ready.recent=true;render()},fail));
   unsubs.push(col("done").where("date",">=",cut).limit(1000).onSnapshot(s=>{S.done=new Map(s.docs.map(d=>[d.id,d.data()]));S.ready.done=true;render()},fail));
+  unsubs.push(col("upt").limit(1000).onSnapshot(s=>{S.upt=new Map(s.docs.map(d=>[d.id,d.data()]));uptSnapshot()},fail));
+  unsubs.push(col("uptcfg").limit(5).onSnapshot(s=>{const d=s.docs.find(x=>x.id==="main");S.uptCfg=Object.assign({},UCFG0,d?d.data():{});uptSnapshot()},fail));
   AG.initNotifs();
 }
 async function boot(){
@@ -392,10 +429,10 @@ document.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>setView(b.dataset
 const goToday=()=>{S.focus=null;if(S.view!=="day"){setView("day")}else{S.date=today();render()}};
 document.getElementById("goToday").onclick=goToday;
 document.getElementById("bToday").onclick=goToday;
-document.getElementById("bAdd").onclick=()=>{if(!ready())return;openTask({pri:2,date:S.view==="day"?S.date:today()})};
+document.getElementById("bAdd").onclick=()=>{if(!ready())return;if(S.view==="upt"){openProduct(null);return}openTask({pri:2,date:S.view==="day"?S.date:today()})};
 (function(){let x0=null,y0=0;
   main.addEventListener("touchstart",e=>{if(e.touches.length!==1||e.target.closest(".filters"))return;x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
-  main.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+  main.addEventListener("touchend",e=>{if(x0==null||S.view==="upt"){x0=null;return}const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
     if(Math.abs(dx)<70||Math.abs(dy)>50)return;const n=dx<0?1:-1;
     if(S.view==="day"){S.date=addDays(S.date,n)}else{const d=parse(S.month);d.setMonth(d.getMonth()+n);S.month=fmt(d)}render()},{passive:true});
 })();
@@ -404,7 +441,8 @@ function render(what){
   document.querySelectorAll("[data-v]").forEach(b=>b.dataset.v===S.view?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
   document.querySelectorAll("[data-today]").forEach(b=>S.view==="day"?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
   if(S.noData||!ready())return;
-  if(S.view==="month")renderMonth();else renderDay();
+  if(S.view==="upt"){const ae=document.activeElement;if(ae&&ae.tagName==="INPUT"&&main.contains(ae)&&!what){S.uptPending=true;return}}
+  if(S.view==="month")renderMonth();else if(S.view==="upt")renderUpt();else renderDay();
   checkAlarms();queueNotifs();
 }
 /* notifiche sul telefono: prossimi 7 giorni */
@@ -656,6 +694,157 @@ function openShift(ctx){
     if(first&&!orig)document.getElementById("s-title").focus();first=false;
   }
   draw();
+}
+
+/* ---------- RIORDINO (UPT TOOL) ---------- */
+const CROSS=["D1","D2-D4","D7","D15","D16","Casse"];
+const RISK={BUCO:{n:"Buco",c:"var(--p1)",o:0},CRITICO:{n:"Critico",c:"var(--p1)",o:1},BASSO:{n:"Scorta bassa",c:"var(--p2)",o:2},OK:{n:"OK",c:"var(--ok)",o:3}};
+const UCFG0={arrival:"",scorta:20,wknd:30,upAll:0,upS:0,upC:0,space:{}};
+S.upt=new Map();S.uptCfg=Object.assign({},UCFG0);S.cross=CROSS.includes(ls.get("ag2.cross"))?ls.get("ag2.cross"):"D1";S.uptPending=false;
+const num=v=>{const n=Number(String(v==null?"":v).replace(",","."));return isFinite(n)?n:0};
+function uptDays(){const a=S.uptCfg.arrival;if(!a)return 0;return Math.max(0,Math.round((parse(a)-parse(today()))/864e5))}
+/* stessi calcoli del foglio "Ordine" */
+function uptCalc(p,cfg){
+  const c=cfg||S.uptCfg,H=num(p.qRep)+num(p.qCross),J=num(p.s4),K=num(p.s3),L=num(p.s2),M=num(p.s1);
+  const N=(J+K+L+M)/4,O=N/7,U=(J>0&&M>0)?Math.pow(M/J,1/3)-1:0;
+  const V=num(c.upAll)/100+(p.tipo==="Stagionale"?num(c.upS)/100:num(c.upC)/100);
+  const days=uptDays(),P=O*days*(1+num(c.wknd)/100*2/7)*(1+U)*(1+V),Q=num(p.stock)-P;
+  const R=Math.max(0,Math.ceil(Math.round((H*(1+num(c.scorta)/100)-Q)*1e6)/1e6));
+  const risk=Q<0?"BUCO":Q<H*0.3?"CRITICO":Q<H*0.6?"BASSO":"OK";
+  return {H,N,U,V,P,Q,R,risk,days};
+}
+function crossItems(x){return [...S.upt.entries()].filter(([,p])=>p.cross===x).sort((a,b)=>(num(a[1].ord)-num(b[1].ord))||String(a[1].name||"").localeCompare(String(b[1].name||"")))}
+function uptSnapshot(){if(S.view==="upt")render()}
+const fmt1=x=>(Math.round(x*10)/10).toLocaleString("it-IT");
+
+function renderUpt(){
+  const c=S.uptCfg,days=uptDays(),all=[...S.upt.values()].map(p=>uptCalc(p));
+  const tot=all.reduce((s,x)=>s+x.R,0),crit=all.filter(x=>x.risk==="BUCO"||x.risk==="CRITICO").length,low=all.filter(x=>x.risk==="BASSO").length,ok=all.filter(x=>x.risk==="OK").length;
+  let h='<div class="utop"><div><h2 class="mname">Riordino</h2><div class="hint">'+(c.arrival?'Camion '+esc(longDate(c.arrival).toLowerCase())+' · '+(days?'tra '+days+(days===1?' giorno':' giorni'):'oggi o già arrivato'):'Imposta la data di arrivo del camion')+' · scorta '+num(c.scorta)+'%</div></div><button class="btn sm" id="uCfg">⚙ Parametri</button></div>';
+  h+='<div class="ukpi"><div class="k"><b>'+tot+'</b><span>da ordinare</span></div><div class="k" style="--kc:var(--p1)"><b>'+crit+'</b><span>buco / critico</span></div><div class="k" style="--kc:var(--p2)"><b>'+low+'</b><span>scorta bassa</span></div><div class="k" style="--kc:var(--ok)"><b>'+ok+'</b><span>ok</span></div></div>';
+  h+='<div class="ucross" role="group" aria-label="Cross">'+CROSS.map(x=>{const it=crossItems(x).map(([,p])=>uptCalc(p));const worst=it.reduce((w,r)=>RISK[r.risk].o<RISK[w].o?r.risk:w,"OK");const o=it.reduce((s,r)=>s+r.R,0);
+    return '<button class="uc'+(S.cross===x?' on':'')+'" data-cross="'+esc(x)+'" style="--rc:'+(it.length?RISK[worst].c:'var(--line)')+'"><b>'+esc(x)+'</b><span>'+(it.length?o+' da ord.':'vuoto')+'</span></button>'}).join("")+'</div>';
+  const items=crossItems(S.cross);
+  h+='<div class="ubar"><b>'+esc(S.cross)+'</b><span class="hint">'+items.length+(items.length===1?' prodotto':' prodotti')+'</span><span class="sp"></span><button class="btn sm" id="uCopy">Copia ordine</button><button class="btn primary sm" id="uAdd">+ Prodotto</button></div>';
+  if(!items.length)h+='<div class="hello">'+(S.upt.size?'Nessun prodotto in questo cross. ':'<b>Nessun prodotto.</b> ')+'Aggiungilo con "+ Prodotto"'+(S.upt.size?'.':', oppure importa il tuo file Excel UPT qui sotto.')+'</div>';
+  else{
+    h+='<div class="uhead"><span>Prodotto</span><span>Stock reale</span><span>Da ord.</span></div><ul class="ulist">';
+    items.forEach(([id,p])=>{const r=uptCalc(p),rk=RISK[r.risk];
+      h+='<li class="up" style="--rc:'+rk.c+'"><div class="ubody" data-edit="'+esc(id)+'"><div class="ut">'+esc(p.name||"Senza nome")+'</div><div class="meta">'+(p.kimball?'<span class="by">'+esc(p.kimball)+'</span>':'')+(p.color?'<span>'+esc(p.color)+'</span>':'')+'<span>nec. '+r.H+'</span><span>'+(p.tipo==="Stagionale"?'stag.':'cont.')+'</span><span class="rk">'+rk.n+'</span></div></div>'+
+        '<input class="ustock" type="number" inputmode="numeric" min="0" enterkeyhint="next" id="us-'+esc(id)+'" data-stock="'+esc(id)+'" value="'+esc(p.stock==null?"":p.stock)+'" aria-label="Stock reale '+esc(p.name||"")+'">'+
+        '<div class="uord"><b>'+r.R+'</b></div></li>'});
+    h+='</ul>';
+  }
+  const sp=(c.space||{})[S.cross]||{},inc=num(sp.rep)>0?num(sp.cross)/num(sp.rep):0;
+  const val=!num(sp.rep)?"Inserisci gli spazi":inc>0.4?"🔴 Troppo cross":inc>0.25?"🟡 Alta incidenza":inc>0.1?"🟢 Nella norma":"⬇ Bassa";
+  h+='<div class="uspace"><span class="lbl">Incidenza spazio cross · '+esc(S.cross)+'</span><div class="row3"><label>Reparto (ft)<input class="inp" type="number" inputmode="decimal" id="spRep" value="'+esc(sp.rep||"")+'"></label><label>Cross (ft)<input class="inp" type="number" inputmode="decimal" id="spCross" value="'+esc(sp.cross||"")+'"></label><div class="inc"><b>'+(num(sp.rep)?Math.round(inc*100)+'%':'—')+'</b><span>'+val+'</span></div></div></div>';
+  h+='<div class="uimp"><button class="linkbtn" id="uImp">Importa dal file Excel UPT</button><span class="hint"> · sostituisce i prodotti e i parametri</span><input type="file" id="uFile" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden></div>';
+  main.innerHTML=h;
+  main.querySelectorAll("[data-cross]").forEach(b=>b.onclick=()=>{S.cross=b.dataset.cross;ls.set("ag2.cross",S.cross);render()});
+  main.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>openProduct(b.dataset.edit));
+  document.getElementById("uAdd").onclick=()=>openProduct(null);
+  document.getElementById("uCfg").onclick=openUptCfg;
+  document.getElementById("uCopy").onclick=copyOrder;
+  const ins=[...main.querySelectorAll("[data-stock]")];
+  ins.forEach((el,i)=>{
+    el.addEventListener("focus",()=>el.select());
+    const save=()=>{const id=el.dataset.stock,p=S.upt.get(id);if(!p)return;const v=el.value===""?0:Math.max(0,Math.round(num(el.value)));if(v===num(p.stock))return;
+      const r=uptCalc(Object.assign({},p,{stock:v})),rk=RISK[r.risk],li=el.closest(".up");
+      if(li){li.style.setProperty("--rc",rk.c);li.querySelector(".uord b").textContent=r.R;const k=li.querySelector(".rk");if(k)k.textContent=rk.n}
+      safe(col("upt").doc(id).update({stock:v,at:Date.now()}))};
+    el.addEventListener("change",save);
+    el.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();save();const n=ins[i+1];if(n)n.focus();else el.blur()}});
+    el.addEventListener("blur",()=>setTimeout(()=>{const a=document.activeElement;if(S.uptPending&&!(a&&a.tagName==="INPUT"&&main.contains(a))){S.uptPending=false;render("force")}},50));
+  });
+  const saveSpace=()=>{const rep=num(document.getElementById("spRep").value),cr=num(document.getElementById("spCross").value);const space=Object.assign({},c.space||{});space[S.cross]={rep,cross:cr};safe(col("uptcfg").doc("main").set(Object.assign({},S.uptCfg,{space})))};
+  ["spRep","spCross"].forEach(id=>{const e=document.getElementById(id);e.addEventListener("change",saveSpace);e.addEventListener("blur",()=>setTimeout(()=>{const a=document.activeElement;if(S.uptPending&&!(a&&a.tagName==="INPUT"&&main.contains(a))){S.uptPending=false;render("force")}},50))});
+  const f=document.getElementById("uFile");document.getElementById("uImp").onclick=()=>f.click();
+  f.onchange=()=>{const file=f.files&&f.files[0];if(file)importUpt(file);f.value=""};
+}
+
+function openUptCfg(){
+  const c=Object.assign({},S.uptCfg);
+  let h='<h3>Parametri riordino</h3>';
+  h+='<div class="field"><label class="lbl" for="c-arr">Arrivo camion</label><input class="inp" type="date" id="c-arr" value="'+esc(c.arrival||"")+'"><span class="hint" id="c-days"></span></div>';
+  h+='<div class="grid2"><div class="field"><label class="lbl" for="c-sc">Scorta %</label><input class="inp" type="number" inputmode="decimal" id="c-sc" value="'+esc(c.scorta)+'"></div><div class="field"><label class="lbl" for="c-wk">Weekend +%</label><input class="inp" type="number" inputmode="decimal" id="c-wk" value="'+esc(c.wknd)+'"></div></div>';
+  h+='<div class="field"><span class="lbl">Uplift % (si somma al trend di ogni prodotto)</span><div class="grid3"><label>Tutti<input class="inp" type="number" inputmode="decimal" id="c-ua" value="'+esc(c.upAll)+'"></label><label>Stagionali<input class="inp" type="number" inputmode="decimal" id="c-us" value="'+esc(c.upS)+'"></label><label>Continuativi<input class="inp" type="number" inputmode="decimal" id="c-uc" value="'+esc(c.upC)+'"></label></div></div>';
+  h+='<div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div>';
+  mountSheet(h,"var(--accent)");
+  const dd=()=>{const a=document.getElementById("c-arr").value;const d=a?Math.max(0,Math.round((parse(a)-parse(today()))/864e5)):0;document.getElementById("c-days").textContent=a?(d?"Mancano "+d+(d===1?" giorno":" giorni"):"Oggi o già passato: il calcolo usa 0 giorni"):"Senza data il calcolo usa 0 giorni"};
+  dd();document.getElementById("c-arr").addEventListener("change",dd);
+  document.getElementById("cancel").onclick=closeSheet;
+  document.getElementById("sf").addEventListener("submit",async e=>{e.preventDefault();const g=id=>document.getElementById(id).value;
+    const n=Object.assign({},S.uptCfg,{arrival:g("c-arr"),scorta:num(g("c-sc")),wknd:num(g("c-wk")),upAll:num(g("c-ua")),upS:num(g("c-us")),upC:num(g("c-uc"))});
+    closeSheet();await safe(col("uptcfg").doc("main").set(n),"Parametri salvati")});
+}
+
+function openProduct(id){
+  const orig=id?S.upt.get(id):null;
+  const st=Object.assign({cross:S.cross,kimball:"",name:"",color:"",pos:"",qRep:0,qCross:0,tipo:"Continuativo",stock:0,s4:0,s3:0,s2:0,s1:0},orig||{});
+  let conf=false;
+  const F=(k,l,t,extra)=>'<label class="fl"><span>'+l+'</span><input class="inp" id="p-'+k+'" '+(t==="n"?'type="number" inputmode="numeric" min="0"':'type="text" autocomplete="off"')+' value="'+esc(st[k]==null?"":st[k])+'"'+(extra||'')+'></label>';
+  function grab(){["kimball","name","color","pos"].forEach(k=>{const e=document.getElementById("p-"+k);if(e)st[k]=e.value.trim()});
+    ["qRep","qCross","stock","s4","s3","s2","s1"].forEach(k=>{const e=document.getElementById("p-"+k);if(e)st[k]=e.value===""?0:Math.max(0,num(e.value))})}
+  function prev(){const r=uptCalc(st),rk=RISK[r.risk];
+    return '<div class="uprev" style="--rc:'+rk.c+'"><span>Totale necessario</span><b>'+r.H+'</b><span>Media vendite / sett.</span><b>'+fmt1(r.N)+'</b><span>Trend</span><b>'+(r.U>=0?'+':'')+Math.round(r.U*100)+'%</b><span>Vendite fino al camion</span><b>'+fmt1(r.P)+'</b><span>Stock all\'arrivo</span><b>'+fmt1(r.Q)+'</b><span>Rischio</span><b class="rk">'+rk.n+'</b><span class="big">Da ordinare</span><b class="big">'+r.R+'</b></div>'}
+  function draw(){
+    let h='<h3>'+(orig?"Modifica prodotto":"Nuovo prodotto")+' · '+esc(st.cross)+'</h3>';
+    h+='<input class="big" id="p-name" type="text" value="'+esc(st.name)+'" placeholder="Nome prodotto" autocomplete="off">';
+    h+='<div class="grid2">'+F("kimball","Kimball","t",' inputmode="numeric"')+F("color","Colore","t")+'</div>';
+    h+=F("pos","Posizionamento","t");
+    h+='<div class="field"><span class="lbl">Tipo</span>'+seg("tipo",[{k:"Continuativo",n:"Continuativo"},{k:"Stagionale",n:"Stagionale"}],st.tipo)+'</div>';
+    h+='<div class="grid3">'+F("qRep","Q.tà reparto","n")+F("qCross","Q.tà cross","n")+F("stock","Stock reale","n")+'</div>';
+    h+='<div class="field"><span class="lbl">Vendite ultime 4 settimane</span><div class="grid4">'+F("s4","S-4","n")+F("s3","S-3","n")+F("s2","S-2","n")+F("s1","S-1 (ultima)","n")+'</div></div>';
+    h+='<div id="p-prev">'+prev()+'</div>';
+    h+='<div class="field"><span class="lbl">Cross</span>'+seg("cross",CROSS.map(x=>({k:x,n:x})),st.cross)+'</div>';
+    h+='<div class="err" id="err" hidden></div>';
+    if(conf)h+='<div class="confirm"><span>Eliminare questo prodotto?</span><button type="button" class="btn sm" id="cNo">No</button><button type="button" class="btn sm danger" id="cYes">Elimina</button></div>';
+    h+='<div class="actions">'+(orig?'<button type="button" class="btn ghost danger" id="del">Elimina</button>':'')+'<span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div>';
+    mountSheet(h,"var(--accent)");
+    const f=document.getElementById("sf");
+    f.querySelectorAll("input").forEach(i=>i.addEventListener("input",()=>{grab();document.getElementById("p-prev").innerHTML=prev()}));
+    f.querySelectorAll("input[type=number]").forEach(i=>i.addEventListener("focus",()=>i.select()));
+    f.querySelectorAll("[data-seg]").forEach(b=>b.onclick=()=>{grab();st[b.dataset.seg]=b.dataset.val;draw()});
+    document.getElementById("cancel").onclick=closeSheet;
+    const del=document.getElementById("del");if(del)del.onclick=()=>{grab();conf=true;draw()};
+    const cn=document.getElementById("cNo");if(cn)cn.onclick=()=>{conf=false;draw()};
+    const cy=document.getElementById("cYes");if(cy)cy.onclick=async()=>{closeSheet();await safe(col("upt").doc(id).delete(),"Prodotto eliminato")};
+    f.addEventListener("submit",async e=>{e.preventDefault();grab();
+      if(!st.name&&!st.kimball){const er=document.getElementById("err");er.textContent="Scrivi almeno il nome o il Kimball.";er.hidden=false;return}
+      const data={cross:st.cross,kimball:st.kimball,name:st.name,color:st.color,pos:st.pos,qRep:st.qRep,qCross:st.qCross,tipo:st.tipo,stock:st.stock,s4:st.s4,s3:st.s3,s2:st.s2,s1:st.s1,
+        ord:orig?num(orig.ord):(crossItems(st.cross).reduce((m,[,p])=>Math.max(m,num(p.ord)),0)+1),at:Date.now()};
+      closeSheet();
+      await safe(orig?col("upt").doc(id).set(data):col("upt").add(data),orig?"Salvato":"Prodotto aggiunto")});
+    if(!orig)document.getElementById("p-name").focus();
+  }
+  draw();
+}
+
+async function copyOrder(){
+  const rows=crossItems(S.cross).map(([,p])=>[p,uptCalc(p)]).filter(([,r])=>r.R>0);
+  const c=S.uptCfg;
+  const txt="Ordine cross "+S.cross+(c.arrival?" · camion "+longDate(c.arrival).toLowerCase():"")+"\n"+(rows.length?rows.map(([p,r])=>(p.kimball?p.kimball+" ":"")+(p.name||"")+(p.color?" ("+p.color+")":"")+": "+r.R).join("\n")+"\nTotale: "+rows.reduce((s,[,r])=>s+r.R,0):"Niente da ordinare.");
+  try{await navigator.clipboard.writeText(txt);toast("Ordine copiato: incollalo dove vuoi")}
+  catch(e){mountSheet('<h3>Ordine '+esc(S.cross)+'</h3><textarea class="inp" id="ordTxt" rows="10" readonly>'+esc(txt)+'</textarea><span class="hint">Tieni premuto sul testo per copiarlo.</span><div class="actions"><span class="sp"></span><button type="button" class="btn primary" id="cancel">Chiudi</button></div>',"var(--accent)");
+    document.getElementById("cancel").onclick=closeSheet;const t=document.getElementById("ordTxt");t.focus();t.select()}
+}
+
+async function importUpt(file){
+  let res;
+  try{res=AG.parseUpt(await file.arrayBuffer())}catch(e){toast("Questo file non sembra l'UPT Tool. Controlla di aver scelto il file giusto.");return}
+  const n=res.products.length,cur=S.upt.size;
+  const by=CROSS.map(x=>x+": "+res.products.filter(p=>p.cross===x).length).join(" · ");
+  mountSheet('<h3>Importa file UPT</h3><p style="margin:0">Trovati <b>'+n+'</b> prodotti.<br><span class="hint">'+esc(by)+'</span></p>'+(cur?'<div class="confirm"><span>I '+cur+' prodotti attuali verranno sostituiti.</span></div>':'')+'<div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Importa</button></div>',"var(--accent)");
+  document.getElementById("cancel").onclick=closeSheet;
+  document.getElementById("sf").addEventListener("submit",async e=>{e.preventDefault();closeSheet();toast("Importazione in corso…");
+    try{
+      for(const id of [...S.upt.keys()])await col("upt").doc(id).delete();
+      for(const p of res.products)await col("upt").add(Object.assign(p,{at:Date.now()}));
+      await col("uptcfg").doc("main").set(Object.assign({},UCFG0,res.cfg));
+      const first=CROSS.find(x=>res.products.some(p=>p.cross===x));if(first){S.cross=first;ls.set("ag2.cross",first)}
+      toast(n+" prodotti importati");render();
+    }catch(x){toast("Importazione interrotta: controlla la connessione e riprova.")}
+  });
 }
 
 /* ---------- avvisi e sveglie ---------- */
