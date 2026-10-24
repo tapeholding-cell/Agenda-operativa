@@ -286,7 +286,7 @@ textarea.inp{font-family:var(--f-mono);font-size:13px;resize:vertical}
 .etab tr.today td{background:color-mix(in srgb,var(--accent) 9%,var(--paper))}
 .etab tfoot td{font-weight:800;border-bottom:0;border-top:2px solid var(--line)}
 @media (max-width:980px){.pgrid{grid-template-columns:minmax(0,1fr)}.pest{grid-column:1;grid-row:1;border-left:0;border-bottom:1px solid var(--line);position:static}.pgrid .ptable{grid-row:2}}
-.prow{display:grid;grid-template-columns:72px 104px 104px 72px 104px 80px;justify-content:start;gap:6px;align-items:center;padding:4px 16px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.prow{display:grid;grid-template-columns:72px 64px 104px 104px 64px 104px 64px;justify-content:start;gap:6px;align-items:center;padding:4px 16px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
 .phead{align-items:end;line-height:1.15;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);border-top:0;padding-top:8px;padding-bottom:6px;text-align:center}.phead span:first-child{text-align:left}
 .prow.today{background:color-mix(in srgb,var(--accent) 9%,var(--paper));box-shadow:inset 3px 0 0 var(--accent)}
 .prow.past .pday{color:var(--muted)}
@@ -768,7 +768,7 @@ function openShift(ctx){
 }
 
 /* ---------- PALLET · PIANO 3 SETTIMANE ---------- */
-const PAL0={start:"",initial:0,note:"",days:{}};
+const PAL0={start:"",note:"",days:{}};
 S.pal=Object.assign({},PAL0);S.palPending=false;
 const num=v=>{const n=Number(String(v==null?"":v).replace(",","."));return isFinite(n)?n:0};
 const mondayOf=d=>addDays(d,-(wd(d)-1));
@@ -779,9 +779,10 @@ const has=v=>v!==undefined&&v!==null&&v!=="";
    Dopo l'inizio del piano si calcola in avanti dai pallet di partenza; prima, all'indietro (iniziali = fine + lavorati − ricevuti). */
 function palRows(p,off){p=p||S.pal;if(off==null)off=S.palOff||0;const start=p.start||mondayOf(today()),ws=addDays(start,off*7),last=addDays(ws,20),days=p.days||{};
   const g=d=>{const x=days[d]||{};return {x,n:num(x.n),m:num(x.m),r:num(x.r)}},c={};
-  let cur=num(p.initial);for(let d=start;d<=last;d=addDays(d,1)){const v=g(d),ini=cur,at9=ini-v.n-v.m,end=at9+v.r;c[d]={ini,at9,end};cur=end}
-  let prev=num(p.initial);for(let d=addDays(start,-1);d>=ws;d=addDays(d,-1)){const v=g(d),end=prev,ini=end+v.n+v.m-v.r;c[d]={ini,at9:ini-v.n-v.m,end};prev=ini}
-  const out=[];for(let i=0;i<21;i++){const d=addDays(ws,i),v=g(d);out.push(Object.assign({d,i,n:v.n,m:v.m,r:v.r,x:v.x,has:has(v.x.n)||has(v.x.m)||has(v.x.r)},c[d]))}
+  /* conteggio continuo: i pallet iniziali di ogni giorno sono la chiusura del giorno prima (si parte da 0 al primo giorno registrato) */
+  const ks=Object.keys(days).sort(),d0=ks.length&&ks[0]<ws?ks[0]:ws;
+  let cur=0;for(let d=d0;d<=last;d=addDays(d,1)){const v=g(d);if(has(v.x.open))cur=num(v.x.open);const ini=cur,at9=ini-v.n-v.m,end=at9+v.r;c[d]={ini,at9,end};cur=end}
+  const out=[];for(let i=0;i<21;i++){const d=addDays(ws,i),v=g(d);out.push(Object.assign({d,i,n:v.n,m:v.m,r:v.r,x:v.x},c[d]))}
   return out}
 S.palOff=0;
 function palMinOff(){const st=S.pal.start||mondayOf(today()),ks=Object.keys(S.pal.days||{}).sort(),first=ks.length&&ks[0]<st?ks[0]:st;
@@ -793,13 +794,13 @@ function palSetDay(d,patch){const days=Object.assign({},S.pal.days||{}),x=Object
 function palSnapshot(){if(S.view==="pal")render()}
 
 function palChart(rows){
-  const W=640,H=170,pl=30,pr=6,pt=10,pb=34,dr=rows.filter(r=>r.has),vals=dr.map(r=>r.end).concat(dr.map(r=>r.at9));
+  const W=640,H=170,pl=30,pr=6,pt=10,pb=34,vals=rows.map(r=>r.end).concat(rows.map(r=>r.at9));
   const max=Math.max(10,...vals),min=Math.min(0,...vals),sy=v=>pt+(H-pt-pb)*(max-v)/(max-min),bw=(W-pl-pr)/21,t=today();
   const step=max-min>120?50:max-min>60?20:10;let g="";
   for(let v=Math.ceil(min/step)*step;v<=max;v+=step)g+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+sy(v)+'" y2="'+sy(v)+'" stroke="var(--line)"'+(v===0?' stroke-width="1.5"':'')+'/><text x="'+(pl-5)+'" y="'+(sy(v)+3.5)+'" font-size="10" text-anchor="end" fill="var(--muted)">'+v+'</text>';
   rows.forEach((r,i)=>{const x=pl+i*bw+bw*.16,w=bw*.68,y0=sy(0),y=sy(r.end),neg=r.end<0;
-    if(r.has){g+='<rect x="'+x+'" y="'+Math.min(y,y0)+'" width="'+w+'" height="'+Math.max(1,Math.abs(y0-y))+'" rx="2" fill="'+(neg?'var(--p1)':r.d===t?'var(--accent)':'color-mix(in srgb,var(--accent) 45%,var(--paper))')+'"><title>'+shortDay(r.d)+': fine giornata '+r.end+'</title></rect>';
-    g+='<circle cx="'+(x+w/2)+'" cy="'+sy(r.at9)+'" r="2.6" fill="'+(r.at9<0?'var(--p1)':'var(--p2)')+'"><title>'+shortDay(r.d)+': alle 9 '+r.at9+'</title></circle>';}
+    g+='<rect x="'+x+'" y="'+Math.min(y,y0)+'" width="'+w+'" height="'+Math.max(1,Math.abs(y0-y))+'" rx="2" fill="'+(neg?'var(--p1)':r.d===t?'var(--accent)':'color-mix(in srgb,var(--accent) 45%,var(--paper))')+'"><title>'+shortDay(r.d)+': fine giornata '+r.end+'</title></rect>';
+    g+='<circle cx="'+(x+w/2)+'" cy="'+sy(r.at9)+'" r="2.6" fill="'+(r.at9<0?'var(--p1)':'var(--p2)')+'"><title>'+shortDay(r.d)+': alle 9 '+r.at9+'</title></circle>';
     const lc=r.d===t?'var(--accent)':'var(--muted)',fw=r.d===t?' font-weight="800"':'';
     g+='<text x="'+(x+w/2)+'" y="'+(H-19)+'" font-size="11" text-anchor="middle" fill="'+(r.d===t?'var(--accent)':'var(--ink)')+'"'+fw+'>'+parse(r.d).getDate()+'</text><text x="'+(x+w/2)+'" y="'+(H-6)+'" font-size="9" text-anchor="middle" fill="'+lc+'"'+fw+'>'+WD[wd(r.d)-1]+'</text>'});
   return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Pallet a fine giornata nei 21 giorni">'+g+'</svg>';
@@ -812,9 +813,8 @@ function palKpi(rows){
   const f=x=>(Math.round(x*10)/10).toLocaleString("it-IT");
   return '<div class="ukpi"><div class="k" style="--kc:var(--accent)"><b>'+f(pn.avg)+'<small> pallet/notte</small></b><span>Produttività notturno · '+pn.tot+' in '+pn.n+(pn.n===1?' notte':' notti')+(pn.best?' · max '+pn.best:'')+'</span></div>'+
     '<div class="k" style="--kc:var(--p2)"><b>'+f(pm.avg)+'<small> pallet/turno</small></b><span>Produttività alle 6 · '+pm.tot+' in '+pm.n+(pm.n===1?' turno':' turni')+(pm.best?' · max '+pm.best:'')+'</span></div>'+
-    (()=>{const upto=rows.filter(r=>r.has&&r.d<=t),lt=upto[upto.length-1],dl=rows.filter(r=>r.has),ld=dl[dl.length-1];
-      return '<div class="k"><b>'+(lt?lt.end:'—')+'</b><span>'+(lt?(lt.d===t?'Pallet oggi a fine giornata':'Pallet a fine giornata · '+esc(shortDay(lt.d))):'Nessun dato fino a oggi')+'</span></div>'+
-      '<div class="k" style="--kc:'+(ld&&ld.end<0?'var(--p1)':'var(--ok)')+'"><b>'+(ld?ld.end:'—')+'</b><span>'+(ld?'Pallet all\'ultimo giorno compilato · '+esc(shortDay(ld.d)):'Nessun giorno compilato')+'</span></div></div>'})();
+    '<div class="k"><b>'+(now?now.end:(t<first?rows[0].ini:rows[20].end))+'</b><span>'+(now?'Pallet oggi a fine giornata':t<first?'Pallet di partenza':'Pallet a fine piano')+'</span></div>'+
+    '<div class="k" style="--kc:'+(neg?'var(--p1)':'var(--ok)')+'"><b>'+rows[20].end+'</b><span>Pallet a fine piano · '+esc(shortDay(rows[20].d))+'</span></div></div>';
 }
 /* stima: media per giorno della settimana dei pallet lavorati con i dati dell'ultimo mese (28 giorni prima di oggi) */
 function palEst(){
@@ -851,21 +851,21 @@ function renderPal(){
   const p=S.pal,rows=palRows(),t=today(),first=rows[0].d,last=rows[20].d;
   const tot=k=>rows.reduce((s,r)=>s+r[k],0),now=rows.find(r=>r.d===t),neg=rows.filter(r=>r.at9<0||r.end<0);
   const off=S.palOff||0,mo=palMinOff();
-  let h='<div class="utop"><div><h2 class="mname">Pallet</h2><div class="hint">Piano 3 settimane · si parte da <b>'+num(p.initial)+'</b> pallet il '+esc(shortDate(p.start||mondayOf(today())))+' (modificabile in ⚙ Piano)</div></div><button class="btn sm" id="pCfg">⚙ Piano</button></div>';
+  let h='<div class="utop"><div><h2 class="mname">Pallet</h2><div class="hint">Piano 3 settimane'+(p.start?'':' · tocca ⚙ Piano per la data di inizio')+'</div></div><button class="btn sm" id="pCfg">⚙ Piano</button></div>';
   h+='<div class="pnav'+(off?' old':'')+'"><button class="nav" id="pBack" aria-label="Settimana precedente"'+(off<=mo?' disabled':'')+'>‹</button><div class="pnr"><b>'+esc(shortDate(first))+' – '+esc(shortDate(last))+'</b><span>'+(off?'Storico · '+(-off)+(off===-1?' settimana':' settimane')+' prima del piano attuale':'Piano attuale')+'</span></div><button class="nav" id="pFwd" aria-label="Settimana successiva"'+(off>=0?' disabled':'')+'>›</button>'+(off?'<button class="btn sm" id="pNow">Piano attuale</button>':'')+'</div>';
   if(p.note)h+='<div class="pnote">📌 '+esc(p.note)+'</div>';
   h+=palKpi(rows);
   h+='<div class="pchart"><div class="hint"><span class="lg" style="--c:color-mix(in srgb,var(--accent) 45%,var(--paper))"></span>Pallet a fine giornata · <span class="lg dot" style="--c:var(--p2)"></span>Pallet alle 9</div><div class="pscroll">'+palChart(rows)+'</div></div>';
-  h+='<div class="pgrid"><div class="pest" id="pEst">'+palEstHTML()+'</div><div class="ptable"><div class="prow phead"><span>Giorno</span><span class="ph-in">Lavorati notturno</span><span class="ph-in">Lavorati alle 6</span><span>Pallet alle 9</span><span class="ph-in">Pallet ricevuti</span><span>Pallet a fine giornata</span></div>';
+  h+='<div class="pgrid"><div class="pest" id="pEst">'+palEstHTML()+'</div><div class="ptable"><div class="prow phead"><span>Giorno</span><span class="dsk">Pallet iniziali</span><span class="ph-in">Lavorati notturno</span><span class="ph-in">Lavorati alle 6</span><span>Pallet alle 9</span><span class="ph-in">Pallet ricevuti</span><span>Pallet a fine giornata</span></div>';
   rows.forEach(r=>{
     if(r.i%7===0)h+='<div class="pweek">'+(off?'Settimana':'Settimana '+(r.i/7+1))+' · '+esc(shortDate(r.d))+' – '+esc(shortDate(addDays(r.d,6)))+'</div>';
     const inp=(k,lab)=>'<input class="pin" type="number" inputmode="numeric" min="0" enterkeyhint="next" id="pi-'+k+'-'+r.d+'" data-d="'+r.d+'" data-k="'+k+'" value="'+(has(r.x[k])?esc(r.x[k]):'')+'" placeholder="'+palPh(r,k)+'" aria-label="'+lab+' '+esc(shortDay(r.d))+'">';
     h+='<div class="prow'+(r.d===t?' today':'')+(r.d<t?' past':'')+'" data-row="'+r.d+'"><button class="pday" data-day="'+r.d+'"><b>'+esc(WD[wd(r.d)-1])+'</b> '+parse(r.d).getDate()+(r.x.note?' <i>✎</i>':'')+'</button>'+
-      inp("n","Lavorati notturno")+inp("m","Lavorati alle 6")+
-      '<span class="pv'+(r.has&&r.at9<0?' neg':'')+'" data-o="at9">'+(r.has?r.at9:'—')+'</span>'+inp("r","Pallet ricevuti")+'<span class="pv end'+(r.has&&r.end<0?' neg':'')+'" data-o="end">'+(r.has?r.end:'—')+'</span></div>';
+      '<span class="pv dsk" data-o="ini">'+r.ini+'</span>'+inp("n","Lavorati notturno")+inp("m","Lavorati alle 6")+
+      '<span class="pv'+(r.at9<0?' neg':'')+'" data-o="at9">'+r.at9+'</span>'+inp("r","Pallet ricevuti")+'<span class="pv end'+(r.end<0?' neg':'')+'" data-o="end">'+r.end+'</span></div>';
     if(r.x.note)h+='<div class="pnrow">'+esc(r.x.note)+'</div>';
   });
-  h+='<div class="prow ptot"><span>Totali</span><span class="pv" data-t="n">'+tot("n")+'</span><span class="pv" data-t="m">'+tot("m")+'</span><span></span><span class="pv" data-t="r">'+tot("r")+'</span><span class="pv end" data-t="end">'+rows[20].end+'</span></div></div>';
+  h+='<div class="prow ptot"><span>Totali</span><span class="dsk"></span><span class="pv" data-t="n">'+tot("n")+'</span><span class="pv" data-t="m">'+tot("m")+'</span><span></span><span class="pv" data-t="r">'+tot("r")+'</span><span class="pv end" data-t="end">'+rows[20].end+'</span></div></div>';
   h+='</div>';
   h+='<div class="pact">'+(off?'':'<button class="btn sm" id="pNext">Prossime 3 settimane →</button>')+'<button class="btn sm" id="pCopy">Copia riepilogo</button></div>';
   h+='<div class="uimp"><button class="linkbtn" id="pImp">Importa dal file Excel pallet</button><span class="hint"> · sostituisce il piano attuale</span><input type="file" id="pFile" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden></div>';
@@ -892,7 +892,7 @@ function renderPal(){
 /* aggiorna i numeri a cascata senza ridisegnare (così non si perde il campo in cui stai scrivendo) */
 function palRefresh(){const rows=palRows();
   rows.forEach(r=>{const row=main.querySelector('[data-row="'+r.d+'"]');if(!row)return;
-    [["at9",r.at9],["end",r.end]].forEach(([k,v])=>{const e=row.querySelector('[data-o="'+k+'"]');if(e){e.textContent=r.has?v:"—";e.classList.toggle("neg",r.has&&v<0)}})});
+    [["ini",r.ini],["at9",r.at9],["end",r.end]].forEach(([k,v])=>{const e=row.querySelector('[data-o="'+k+'"]');if(e){e.textContent=v;e.classList.toggle("neg",k!=="ini"&&v<0)}})});
   const tot=k=>rows.reduce((s,r)=>s+r[k],0);
   [["n",tot("n")],["m",tot("m")],["r",tot("r")],["end",rows[20].end]].forEach(([k,v])=>{const e=main.querySelector('[data-t="'+k+'"]');if(e)e.textContent=v});
   const c=main.querySelector(".pchart svg");if(c)c.outerHTML=palChart(rows);
@@ -905,7 +905,7 @@ function openPalCfg(){
   const p=S.pal;
   let h='<h3>Piano pallet</h3>';
   h+='<div class="field"><label class="lbl" for="pc-start">Data inizio</label><input class="inp" type="date" id="pc-start" value="'+esc(p.start||mondayOf(today()))+'"><span class="hint" id="pc-h"></span></div>';
-  h+='<div class="field"><label class="lbl" for="pc-ini">Pallet presenti all\'inizio del piano</label><span class="hint">Metti 0 se vuoi calcolare solo con quello che inserisci giorno per giorno.</span><input class="inp" type="number" inputmode="numeric" id="pc-ini" value="'+esc(num(p.initial))+'"></div>';
+
   h+='<div class="field"><label class="lbl" for="pc-note">Nota del piano</label><input class="inp" type="text" id="pc-note" value="'+esc(p.note||"")+'" placeholder="Es. target SOH 2.6"></div>';
   h+='<div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div>';
   mountSheet(h,"var(--accent)");
@@ -913,14 +913,14 @@ function openPalCfg(){
   document.getElementById("pc-start").addEventListener("change",hh);
   document.getElementById("cancel").onclick=closeSheet;
   document.getElementById("sf").addEventListener("submit",async e=>{e.preventDefault();const g=id=>document.getElementById(id).value;
-    closeSheet();await palSave(Object.assign({},S.pal,{start:g("pc-start")||mondayOf(today()),initial:num(g("pc-ini")),note:g("pc-note").trim()}));toast("Piano salvato");render("force")});
+    closeSheet();await palSave(Object.assign({},S.pal,{start:g("pc-start")||mondayOf(today()),note:g("pc-note").trim()}));toast("Piano salvato");render("force")});
 }
 
 function openPalDay(d){
   const rows=palRows(),r=rows.find(x=>x.d===d);if(!r)return;const x=Object.assign({},r.x);
   const F=(k,l)=>'<label class="fl"><span>'+l+'</span><input class="inp" type="number" inputmode="numeric" min="0" id="pd-'+k+'" value="'+(has(x[k])?esc(x[k]):'')+'" placeholder="0"></label>';
   const prev=()=>{const n=num(document.getElementById("pd-n").value),m=num(document.getElementById("pd-m").value),rc=num(document.getElementById("pd-r").value),a=r.ini-n-m;
-    return '<div class="uprev" style="--rc:var(--accent)"><span>Pallet dal giorno prima</span><b>'+r.ini+'</b><span>Pallet alle 9</span><b'+(a<0?' class="neg"':'')+'>'+a+'</b><span class="big">Pallet a fine giornata</span><b class="big'+(a+rc<0?' neg':'')+'">'+(a+rc)+'</b></div>'};
+    return '<div class="uprev" style="--rc:var(--accent)"><span>Pallet iniziali</span><b>'+r.ini+'</b><span>Pallet alle 9</span><b'+(a<0?' class="neg"':'')+'>'+a+'</b><span class="big">Pallet a fine giornata</span><b class="big'+(a+rc<0?' neg':'')+'">'+(a+rc)+'</b></div>'};
   let h='<h3>'+esc(longDate(d))+'</h3><div class="grid3">'+F("n","Lavorati notturno")+F("m","Lavorati alle 6")+F("r","Pallet ricevuti")+'</div><div id="pd-prev"></div>';
   h+='<div class="field"><label class="lbl" for="pd-note">Nota del giorno</label><input class="inp" type="text" id="pd-note" value="'+esc(x.note||"")+'" placeholder="Es. valutare notturno"></div>';
   h+='<div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div>';
@@ -935,17 +935,17 @@ function openPalDay(d){
 
 function palNext(){
   const rows=palRows(null,0),ns=addDays(rows[0].d,21),ini=rows[20].end;
-  mountSheet('<h3>Prossime 3 settimane</h3><p style="margin:0">Il nuovo piano parte da <b>'+esc(longDate(ns).toLowerCase())+'</b> con <b>'+ini+'</b> pallet (il fine giornata di '+esc(longDate(rows[20].d).toLowerCase())+'). I dati già inseriti per quei giorni restano.</p><div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Inizia</button></div>',"var(--accent)");
+  mountSheet('<h3>Prossime 3 settimane</h3><p style="margin:0">Il nuovo piano parte da <b>'+esc(longDate(ns).toLowerCase())+'</b>: i pallet iniziali del primo giorno saranno la chiusura di '+esc(longDate(rows[20].d).toLowerCase())+' (<b>'+ini+'</b>). I dati già inseriti per quei giorni restano.</p><div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Inizia</button></div>',"var(--accent)");
   document.getElementById("cancel").onclick=closeSheet;
   document.getElementById("sf").addEventListener("submit",async e=>{e.preventDefault();closeSheet();
     const keep={};Object.entries(S.pal.days||{}).forEach(([d,x])=>{if(d>=addDays(ns,-70))keep[d]=x});
-    await palSave(Object.assign({},S.pal,{start:ns,initial:ini,days:keep}));toast("Nuovo piano dal "+shortDate(ns));render("force")});
+    await palSave(Object.assign({},S.pal,{start:ns,days:keep}));toast("Nuovo piano dal "+shortDate(ns));render("force")});
 }
 
 async function palCopy(){
   const rows=palRows(),p=S.pal;
-  const txt="Piano pallet "+shortDate(rows[0].d)+" – "+shortDate(rows[20].d)+(p.note?"\n"+p.note:"")+"\nPartenza: "+num(p.initial)+" pallet\n"+
-    rows.filter(r=>r.has).map(r=>shortDay(r.d)+": alle 9 "+r.at9+" · fine "+r.end+((r.n||r.m||r.r)?" (notte "+r.n+", mattina "+r.m+", ricevuti "+r.r+")":"")+(r.x.note?" – "+r.x.note:"")).join("\n")+
+  const txt="Piano pallet "+shortDate(rows[0].d)+" – "+shortDate(rows[20].d)+(p.note?"\n"+p.note:"")+"\n"+
+    rows.map(r=>shortDay(r.d)+": alle 9 "+r.at9+" · fine "+r.end+((r.n||r.m||r.r)?" (notte "+r.n+", mattina "+r.m+", ricevuti "+r.r+")":"")+(r.x.note?" – "+r.x.note:"")).join("\n")+
     "\nTotali: lavorati "+rows.reduce((s,r)=>s+r.n+r.m,0)+", ricevuti "+rows.reduce((s,r)=>s+r.r,0)+", fine piano "+rows[20].end;
   try{await navigator.clipboard.writeText(txt);toast("Riepilogo copiato: incollalo dove vuoi")}
   catch(e){mountSheet('<h3>Riepilogo pallet</h3><textarea class="inp" id="ordTxt" rows="12" readonly>'+esc(txt)+'</textarea><span class="hint">Tieni premuto sul testo per copiarlo.</span><div class="actions"><span class="sp"></span><button type="button" class="btn primary" id="cancel">Chiudi</button></div>',"var(--accent)");
@@ -955,11 +955,13 @@ async function palCopy(){
 async function palImport(file){
   let res;try{res=AG.parsePallet(await file.arrayBuffer())}catch(e){toast("Questo file non sembra il calcolo pallet. Controlla di aver scelto il file giusto.");return}
   const n=Object.keys(res.days).length;
-  mountSheet('<h3>Importa piano pallet</h3><p style="margin:0">Inizio <b>'+esc(longDate(res.start).toLowerCase())+'</b>, partenza <b>'+res.initial+'</b> pallet, <b>'+n+'</b> giorni compilati.'+(res.note?'<br><span class="hint">Nota: '+esc(res.note)+'</span>':'')+'</p><div class="confirm"><span>Il piano attuale verrà sostituito.</span></div><div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Importa</button></div>',"var(--accent)");
+  mountSheet('<h3>Importa piano pallet</h3><p style="margin:0">Inizio <b>'+esc(longDate(res.start).toLowerCase())+'</b>, <b>'+n+'</b> giorni compilati.'+(res.note?'<br><span class="hint">Nota: '+esc(res.note)+'</span>':'')+'</p><div class="confirm"><span>Il piano attuale verrà sostituito.</span></div><div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Importa</button></div>',"var(--accent)");
   document.getElementById("cancel").onclick=closeSheet;
   document.getElementById("sf").addEventListener("submit",async e=>{e.preventDefault();closeSheet();
     const keep={};Object.entries(S.pal.days||{}).forEach(([d,x])=>{if(d<res.start&&d>=addDays(res.start,-70))keep[d]=x});
-    S.palOff=0;if(await palSave(Object.assign({},PAL0,res,{days:Object.assign(keep,res.days)})))toast("Piano importato");render("force")});
+    const nd=Object.assign(keep,res.days),prevDay=Object.keys(keep).some(d=>d<res.start);
+    if(!prevDay&&res.initial){nd[res.start]=Object.assign({},nd[res.start]||{},{open:res.initial})}
+    S.palOff=0;if(await palSave(Object.assign({},PAL0,{start:res.start,note:res.note,days:nd})))toast("Piano importato");render("force")});
 }
 
 /* ---------- TURNI TIPO (attività di default per turno) ---------- */
