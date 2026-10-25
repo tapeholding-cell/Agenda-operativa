@@ -295,6 +295,9 @@ textarea.inp{font-family:var(--f-mono);font-size:13px;resize:vertical}
 .pin{width:100%;min-width:0;border:1px solid color-mix(in srgb,var(--p2) 45%,var(--line));border-radius:7px;background:color-mix(in srgb,var(--p2) 13%,var(--paper));padding:7px 2px;font-size:16px;font-weight:600;text-align:center;font-variant-numeric:tabular-nums}
 .pin::placeholder{color:color-mix(in srgb,var(--muted) 55%,transparent)}
 .pin:focus{outline:2px solid var(--p2);background:var(--paper)}
+.pin[data-est]{font-style:italic;color:color-mix(in srgb,var(--p2) 75%,var(--ink));font-weight:500}
+.pv.estv{font-style:italic;color:color-mix(in srgb,var(--p2) 70%,var(--muted))}.pv.end.estv{color:color-mix(in srgb,var(--p2) 75%,var(--ink))}
+.chkl{display:flex;gap:8px;align-items:center;font-size:14px;font-weight:600}.chkl input{width:18px;height:18px}
 .ph-in{color:var(--p2)}
 .ukpi b small{font-size:12px;font-weight:700;color:var(--muted)}
 .pscroll{overflow-x:auto}.pscroll svg{min-width:600px}
@@ -781,7 +784,11 @@ function palRows(p,off){p=p||S.pal;if(off==null)off=S.palOff||0;const start=p.st
   const g=d=>{const x=days[d]||{};return {x,n:num(x.n),m:num(x.m),r:num(x.r)}},c={};
   /* conteggio continuo: i pallet iniziali di ogni giorno sono la chiusura del giorno prima (si parte da 0 al primo giorno registrato) */
   const ks=Object.keys(days).sort(),d0=ks.length&&ks[0]<ws?ks[0]:ws;
-  let cur=0;for(let d=d0;d<=last;d=addDays(d,1)){const v=g(d);if(has(v.x.open))cur=num(v.x.open);const ini=cur,at9=ini-v.n-v.m,end=at9+v.r;c[d]={ini,at9,end};cur=end}
+  /* nei giorni da oggi in poi senza lavorati inseriti si usa la stima (media dell'ultimo mese per quel giorno della settimana) */
+  const t=today(),E=palEst().w;
+  let cur=0;for(let d=d0;d<=last;d=addDays(d,1)){const v=g(d);if(has(v.x.open))cur=num(v.x.open);let n=v.n,m=v.m,est=false;
+    if(d>=t&&!has(v.x.n)&&!has(v.x.m)){const e=E[wd(d)-1];if(e.n!=null||e.m!=null){n=Math.round(e.n||0);m=Math.round(e.m||0);est=true}}
+    const ini=cur,at9=ini-n-m,end=at9+v.r;c[d]={ini,at9,end,est};cur=end}
   const out=[];for(let i=0;i<21;i++){const d=addDays(ws,i),v=g(d);out.push(Object.assign({d,i,n:v.n,m:v.m,r:v.r,x:v.x},c[d]))}
   return out}
 S.palOff=0;
@@ -789,6 +796,7 @@ function palMinOff(){const st=S.pal.start||mondayOf(today()),ks=Object.keys(S.pa
   return Math.min(-5,-Math.ceil((parse(st)-parse(first))/(7*864e5)))}
 function palSave(next){S.pal=next;return safe(col("pallet").doc("plan").set(next))}
 function palSetDay(d,patch){const days=Object.assign({},S.pal.days||{}),x=Object.assign({},days[d]||{},patch);
+  if("n" in patch||"m" in patch)delete x.est;
   Object.keys(x).forEach(k=>{if(!has(x[k]))delete x[k]});if(Object.keys(x).length)days[d]=x;else delete days[d];
   return palSave(Object.assign({},S.pal,{days}))}
 function palSnapshot(){if(S.view==="pal")render()}
@@ -799,7 +807,7 @@ function palChart(rows){
   const step=max-min>120?50:max-min>60?20:10;let g="";
   for(let v=Math.ceil(min/step)*step;v<=max;v+=step)g+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+sy(v)+'" y2="'+sy(v)+'" stroke="var(--line)"'+(v===0?' stroke-width="1.5"':'')+'/><text x="'+(pl-5)+'" y="'+(sy(v)+3.5)+'" font-size="10" text-anchor="end" fill="var(--muted)">'+v+'</text>';
   rows.forEach((r,i)=>{const x=pl+i*bw+bw*.16,w=bw*.68,y0=sy(0),y=sy(r.end),neg=r.end<0;
-    g+='<rect x="'+x+'" y="'+Math.min(y,y0)+'" width="'+w+'" height="'+Math.max(1,Math.abs(y0-y))+'" rx="2" fill="'+(neg?'var(--p1)':r.d===t?'var(--accent)':'color-mix(in srgb,var(--accent) 45%,var(--paper))')+'"><title>'+shortDay(r.d)+': fine giornata '+r.end+'</title></rect>';
+    g+='<rect x="'+x+'" y="'+Math.min(y,y0)+'" width="'+w+'" height="'+Math.max(1,Math.abs(y0-y))+'" rx="2" fill="'+(neg?'var(--p1)':r.d===t?'var(--accent)':'color-mix(in srgb,var(--accent) 45%,var(--paper))')+'"'+(r.est?' fill-opacity=".35" stroke="var(--accent)" stroke-dasharray="3 2"':'')+'><title>'+shortDay(r.d)+(r.est?' (stima)':'')+': fine giornata '+r.end+'</title></rect>';
     g+='<circle cx="'+(x+w/2)+'" cy="'+sy(r.at9)+'" r="2.6" fill="'+(r.at9<0?'var(--p1)':'var(--p2)')+'"><title>'+shortDay(r.d)+': alle 9 '+r.at9+'</title></circle>';
     const lc=r.d===t?'var(--accent)':'var(--muted)',fw=r.d===t?' font-weight="800"':'';
     g+='<text x="'+(x+w/2)+'" y="'+(H-19)+'" font-size="11" text-anchor="middle" fill="'+(r.d===t?'var(--accent)':'var(--ink)')+'"'+fw+'>'+parse(r.d).getDate()+'</text><text x="'+(x+w/2)+'" y="'+(H-6)+'" font-size="9" text-anchor="middle" fill="'+lc+'"'+fw+'>'+WD[wd(r.d)-1]+'</text>'});
@@ -819,7 +827,7 @@ function palKpi(rows){
 /* stima: media per giorno della settimana dei pallet lavorati con i dati dell'ultimo mese (28 giorni prima di oggi) */
 function palEst(){
   const t=today(),from=addDays(t,-28),to=addDays(t,-1),acc={};for(let w=1;w<=7;w++)acc[w]={n:[],m:[]};
-  Object.entries(S.pal.days||{}).forEach(([d,x])=>{if(d<from||d>to)return;const w=wd(d);if(!has(x.n)&&!has(x.m))return;acc[w].n.push(num(x.n));acc[w].m.push(num(x.m))});
+  Object.entries(S.pal.days||{}).forEach(([d,x])=>{if(d<from||d>to||x.est)return;const w=wd(d);if(!has(x.n)&&!has(x.m))return;acc[w].n.push(num(x.n));acc[w].m.push(num(x.m))});
   const avg=a=>a.length?a.reduce((s,v)=>s+v,0)/a.length:null;
   const w=[1,2,3,4,5,6,7].map(k=>({w:k,n:avg(acc[k].n),m:avg(acc[k].m),c:Math.max(acc[k].n.length,acc[k].m.length)}));
   return {from,to,w,any:w.some(x=>x.n!=null||x.m!=null)};
@@ -835,17 +843,26 @@ function palEstHTML(){
     h+='<tr'+(x.w===wd(t)?' class="today"':'')+'><td><b>'+WDL[x.w-1]+'</b>'+(x.c?'<small>'+x.c+(x.c===1?' giorno':' giorni')+'</small>':'')+'</td><td>'+f(x.n)+'</td><td>'+f(x.m)+'</td><td class="t">'+(x.n==null&&x.m==null?'<span class="na">—</span>':f(tot))+'</td></tr>'});
   h+='</tbody><tfoot><tr><td>Settimana</td><td>'+f(tn)+'</td><td>'+f(tm)+'</td><td class="t">'+f(tn+tm)+'</td></tr></tfoot></table>';
   const empty=palRows(null,0).filter(r=>r.d>=t&&!has(r.x.n)&&!has(r.x.m)).length;
-  h+='<p class="hint" style="margin:8px 0">Nei giorni da oggi in poi ancora vuoti la stima compare in grigio (es. ~25).</p>'+(empty?'<button class="btn sm" id="pFill">Usa la stima nei '+empty+' giorni vuoti</button>':'');
+  h+='<p class="hint" style="margin:8px 0">Nei giorni da oggi in poi senza lavorati inseriti la stima è già usata nel calcolo: i pallet alle 9 e a fine giornata compaiono in corsivo con ≈. Le giornate inserite con la stima non entrano nella media finché non le correggi.</p><button class="btn sm" id="pFill">Inserisci la stima…</button>';
   return h;
 }
 function bindEst(){const b=document.getElementById("pFill");if(!b)return;b.onclick=()=>{
-  const e=palEst(),t=today(),list=palRows(null,0).filter(r=>r.d>=t&&!has(r.x.n)&&!has(r.x.m));
-  mountSheet('<h3>Usa la stima</h3><p style="margin:0">Riempio <b>'+list.length+'</b> giorni vuoti, da '+esc(shortDay(list[0].d))+' a '+esc(shortDay(list[list.length-1].d))+', con la media dell\'ultimo mese per quel giorno della settimana. I giorni già compilati non cambiano e potrai correggere ogni valore.</p><div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Riempi</button></div>',"var(--p2)");
+  const e=palEst(),t=today(),rows=palRows(),dFrom=rows[0].d>t?rows[0].d:(rows[20].d<t?rows[0].d:t),dTo=rows[20].d;
+  let h='<h3>Inserisci la stima</h3><p class="hint" style="margin:0">Scrivo nei giorni scelti la media dell\'ultimo mese per quel giorno della settimana (notturno e alle 6). Potrai correggere ogni valore.</p>';
+  h+='<div class="grid2"><div class="field"><label class="lbl" for="ef-from">Dal giorno</label><input class="inp" type="date" id="ef-from" value="'+dFrom+'"></div><div class="field"><label class="lbl" for="ef-to">Al giorno</label><input class="inp" type="date" id="ef-to" value="'+dTo+'"></div></div>';
+  h+='<label class="chkl"><input type="checkbox" id="ef-over"> Sovrascrivi anche i giorni già compilati</label><div class="hint" id="ef-info"></div><div class="err" id="err" hidden></div>';
+  h+='<div class="actions"><span class="sp"></span><button type="button" class="btn" id="cancel">Annulla</button><button type="submit" class="btn primary">Inserisci</button></div>';
+  mountSheet(h,"var(--p2)");
+  const pick=()=>{const f=document.getElementById("ef-from").value,to=document.getElementById("ef-to").value,ov=document.getElementById("ef-over").checked,days=S.pal.days||{},out=[];
+    if(!f||!to||to<f)return out;for(let d=f;d<=to&&out.length<120;d=addDays(d,1)){const x=days[d]||{},w=e.w[wd(d)-1];if(w.n==null&&w.m==null)continue;if(!ov&&(has(x.n)||has(x.m)))continue;out.push(d)}return out};
+  const info=()=>{const l=pick();document.getElementById("ef-info").textContent=l.length?("Verranno compilati "+l.length+(l.length===1?" giorno":" giorni")+", da "+shortDay(l[0])+" a "+shortDay(l[l.length-1])+"."):"Nessun giorno da compilare in questo periodo (giorni già compilati o senza dati per la media)."};
+  ["ef-from","ef-to","ef-over"].forEach(id=>document.getElementById(id).addEventListener("change",info));info();
   document.getElementById("cancel").onclick=closeSheet;
-  document.getElementById("sf").addEventListener("submit",async ev=>{ev.preventDefault();closeSheet();
-    const days=Object.assign({},S.pal.days||{});
-    list.forEach(r=>{const x=e.w[wd(r.d)-1],o=Object.assign({},days[r.d]||{});if(x.n!=null)o.n=Math.round(x.n);if(x.m!=null)o.m=Math.round(x.m);if(Object.keys(o).length)days[r.d]=o});
-    await palSave(Object.assign({},S.pal,{days}));toast("Stima inserita: puoi correggere ogni giorno");render("force")});
+  document.getElementById("sf").addEventListener("submit",async ev=>{ev.preventDefault();const l=pick();
+    if(!l.length){const er=document.getElementById("err");er.textContent="Scegli un periodo con giorni da compilare.";er.hidden=false;return}
+    closeSheet();const days=Object.assign({},S.pal.days||{});
+    l.forEach(d=>{const w=e.w[wd(d)-1],o=Object.assign({},days[d]||{});o.n=Math.round(w.n||0);o.m=Math.round(w.m||0);o.est=true;days[d]=o});
+    await palSave(Object.assign({},S.pal,{days}));toast("Stima inserita in "+l.length+(l.length===1?" giorno":" giorni"));render("force")});
 }}
 function renderPal(){
   const p=S.pal,rows=palRows(),t=today(),first=rows[0].d,last=rows[20].d;
@@ -859,10 +876,10 @@ function renderPal(){
   h+='<div class="pgrid"><div class="pest" id="pEst">'+palEstHTML()+'</div><div class="ptable"><div class="prow phead"><span>Giorno</span><span class="dsk">Pallet iniziali</span><span class="ph-in">Lavorati notturno</span><span class="ph-in">Lavorati alle 6</span><span>Pallet alle 9</span><span class="ph-in">Pallet ricevuti</span><span>Pallet a fine giornata</span></div>';
   rows.forEach(r=>{
     if(r.i%7===0)h+='<div class="pweek">'+(off?'Settimana':'Settimana '+(r.i/7+1))+' · '+esc(shortDate(r.d))+' – '+esc(shortDate(addDays(r.d,6)))+'</div>';
-    const inp=(k,lab)=>'<input class="pin" type="number" inputmode="numeric" min="0" enterkeyhint="next" id="pi-'+k+'-'+r.d+'" data-d="'+r.d+'" data-k="'+k+'" value="'+(has(r.x[k])?esc(r.x[k]):'')+'" placeholder="'+palPh(r,k)+'" aria-label="'+lab+' '+esc(shortDay(r.d))+'">';
+    const inp=(k,lab)=>'<input class="pin" type="number" inputmode="numeric" min="0" enterkeyhint="next" id="pi-'+k+'-'+r.d+'" data-d="'+r.d+'" data-k="'+k+'" value="'+(has(r.x[k])?esc(r.x[k]):'')+'" placeholder="'+palPh(r,k)+'"'+(r.x.est&&k!=="r"?' data-est="1"':'')+' aria-label="'+lab+' '+esc(shortDay(r.d))+'">';
     h+='<div class="prow'+(r.d===t?' today':'')+(r.d<t?' past':'')+'" data-row="'+r.d+'"><button class="pday" data-day="'+r.d+'"><b>'+esc(WD[wd(r.d)-1])+'</b> '+parse(r.d).getDate()+(r.x.note?' <i>✎</i>':'')+'</button>'+
       '<span class="pv dsk" data-o="ini">'+r.ini+'</span>'+inp("n","Lavorati notturno")+inp("m","Lavorati alle 6")+
-      '<span class="pv'+(r.at9<0?' neg':'')+'" data-o="at9">'+r.at9+'</span>'+inp("r","Pallet ricevuti")+'<span class="pv end'+(r.end<0?' neg':'')+'" data-o="end">'+r.end+'</span></div>';
+      '<span class="pv'+(r.at9<0?' neg':'')+(r.est?' estv':'')+'" data-o="at9">'+(r.est?'≈':'')+r.at9+'</span>'+inp("r","Pallet ricevuti")+'<span class="pv end'+(r.end<0?' neg':'')+(r.est?' estv':'')+'" data-o="end">'+(r.est?'≈':'')+r.end+'</span></div>';
     if(r.x.note)h+='<div class="pnrow">'+esc(r.x.note)+'</div>';
   });
   h+='<div class="prow ptot"><span>Totali</span><span class="dsk"></span><span class="pv" data-t="n">'+tot("n")+'</span><span class="pv" data-t="m">'+tot("m")+'</span><span></span><span class="pv" data-t="r">'+tot("r")+'</span><span class="pv end" data-t="end">'+rows[20].end+'</span></div></div>';
@@ -892,7 +909,8 @@ function renderPal(){
 /* aggiorna i numeri a cascata senza ridisegnare (così non si perde il campo in cui stai scrivendo) */
 function palRefresh(){const rows=palRows();
   rows.forEach(r=>{const row=main.querySelector('[data-row="'+r.d+'"]');if(!row)return;
-    [["ini",r.ini],["at9",r.at9],["end",r.end]].forEach(([k,v])=>{const e=row.querySelector('[data-o="'+k+'"]');if(e){e.textContent=v;e.classList.toggle("neg",k!=="ini"&&v<0)}})});
+    [["ini",r.ini],["at9",r.at9],["end",r.end]].forEach(([k,v])=>{const e=row.querySelector('[data-o="'+k+'"]');if(e){const es=r.est&&k!=="ini";e.textContent=(es?'≈':'')+v;e.classList.toggle("neg",k!=="ini"&&v<0);e.classList.toggle("estv",es)}});
+    row.querySelectorAll(".pin").forEach(i=>{if(i.dataset.k!=="r"&&i===document.activeElement)i.removeAttribute("data-est")})});
   const tot=k=>rows.reduce((s,r)=>s+r[k],0);
   [["n",tot("n")],["m",tot("m")],["r",tot("r")],["end",rows[20].end]].forEach(([k,v])=>{const e=main.querySelector('[data-t="'+k+'"]');if(e)e.textContent=v});
   const c=main.querySelector(".pchart svg");if(c)c.outerHTML=palChart(rows);
